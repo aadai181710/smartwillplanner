@@ -8,24 +8,39 @@
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap}
-        .page-header h1{font-size:1.5rem;color:#000}
+        .page-header{display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}
+        .page-header h1{font-size:1.5rem;color:#000;margin:0}
         .btn-primary{background:#630202;color:#fff;border:none;padding:8px 22px;border-radius:30px;font-weight:600;cursor:pointer}
         .btn-primary:hover{background:#1a5f8a}
-        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-        .stat-card{background:#fff;border-radius:16px;padding:16px 20px;border:1px solid #eef2f8;display:flex;align-items:center;gap:14px}
-        .stat-card .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
-        .stat-icon.blue{background:#e6f0fa;color:#a90404}
-        .stat-icon.red{background:#fde8e8;color:#d9534f}
-        .stat-icon.orange{background:#fef0e0;color:#f0ad4e}
-        .stat-icon.green{background:#e0f0e6;color:#2a9d8f}
-        .stat-card .stat-number{font-size:1.5rem;font-weight:700;color:#1e466e}
-        .stat-card .stat-label{font-size:.75rem;color:#6f8ea3}
+        
+        .btn-total{
+            background:transparent;
+            color:#1f6390;
+            border:none;
+            padding:6px 18px;
+            border-radius:30px;
+            font-weight:600;
+            cursor:pointer;
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            font-size:1rem;
+            transition:background .2s;
+            white-space:nowrap;
+            margin:0 8px;
+        }
+        .btn-total .num{font-size:1.3rem;font-weight:700;color:#0f4a70}
+        .btn-total .label{font-size:.75rem;font-weight:500;color:#4a7a9a;letter-spacing:.5px}
+        .btn-total i{font-size:1.1rem;color:#4a7a9a}
+        .btn-total:hover{background:#d0e4f2}
+        .btn-total:active{transform:scale(.97)}
+
         .toolbar{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap}
         .toolbar .search-box{flex:1;min-width:200px;display:flex;align-items:center;background:#fff;border-radius:30px;padding:0 16px;border:1px solid #e0eaf2}
         .toolbar .search-box input{border:none;background:0 0;padding:8px 12px;width:100%;outline:0}
         .toolbar .filter-group{display:flex;gap:8px}
         .toolbar .filter-group select{padding:7px 14px;border-radius:30px;border:1px solid #e0eaf2;background:#fff;outline:0;cursor:pointer}
+
         .table-wrapper{background:#fff;border-radius:20px;border:1px solid #eef2f8;overflow:hidden}
         .table-scroll{overflow-x:auto;padding:0 20px 4px}
         .client-table{width:100%;border-collapse:collapse;font-size:.85rem}
@@ -50,9 +65,9 @@
         .btn-sm.btn-risk-analyze{background:#f0e6fa;color:#7a3f9e}
         footer{margin-top:20px;padding-top:10px;border-top:1px solid #e0eaf2;text-align:center;font-size:.65rem;color:#7c9ab3}
 
-        /* Shared modal style */
+        /* 模态框样式 */
         #editModal, #riskModal, #addModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;overflow-y:auto;padding:30px 20px}
-        #editModal .modal-box, #riskModal .modal-box, #addModal .modal-box{max-width:960px;margin:0 auto;background:#fff;border-radius:32px;padding:30px 35px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+        .modal-box{max-width:960px;margin:0 auto;background:#fff;border-radius:32px;padding:30px 35px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
         #riskModal .modal-box{max-width:820px}
         #addModal .modal-box{max-width:500px}
         .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:2px solid #eef3f8;padding-bottom:14px}
@@ -83,7 +98,6 @@
         .modal-btns .btn-save{background:#b30707;color:#fff}
         .modal-btns .btn-save:hover{background:#8f0505}
 
-        /* Risk assessment specific styles */
         #riskModal .modal-body .intro-text{font-size:.92rem;color:#1a2c3e;margin-bottom:18px;background:transparent;border:none;padding:0}
         #riskModal .risk-section{background:#fafcfe;border-radius:14px;padding:14px 18px;margin-bottom:14px;border:1px solid #eef2f8}
         #riskModal .risk-section h3{font-size:.95rem;color:#1a2c3e;margin-bottom:10px;font-weight:600;border-bottom:1px dashed #e0eaf2;padding-bottom:8px}
@@ -95,9 +109,7 @@
         #riskModal .modal-btns .btn-save-risk{background:#7a3f9e;color:#fff}
         #riskModal .modal-btns .btn-save-risk:hover{background:#5f2f7a}
 
-        @media(max-width:850px){.stats-grid{grid-template-columns:1fr 1fr}}
         @media(max-width:700px){.frow{flex-direction:column;align-items:stretch}.frow label{width:auto}.frow input{width:100%}.frow .ig{flex-direction:column;align-items:flex-start}}
-        @media(max-width:480px){.stats-grid{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
@@ -108,13 +120,12 @@
         <div class="content">
             <div class="page-header">
                 <h1><i class="fas fa-users"></i> Client Management</h1>
-                <button class="btn-primary" id="addClientBtn"><i class="fas fa-plus"></i> Add Client</button>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-user-friends"></i></div><div><div class="stat-number">42</div><div class="stat-label">Total</div></div></div>
-                <div class="stat-card"><div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div><div><div class="stat-number">5</div><div class="stat-label">Pending</div></div></div>
-                <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-sync-alt"></i></div><div><div class="stat-number">18</div><div class="stat-label">In Progress</div></div></div>
-                <div class="stat-card"><div class="stat-icon green"><i class="fas fa-check-circle"></i></div><div><div class="stat-number">19</div><div class="stat-label">Completed</div></div></div>
+                <button class="btn-total" onclick="alert('Total clients: 42')">
+                    <i class="fas fa-user-friends"></i>
+                    <span class="num">42</span>
+                    <span class="label">Total</span>
+                </button>
+                <button class="btn-primary" id="addClientBtn" style="margin-left:auto;"><i class="fas fa-plus"></i> Add Client</button>
             </div>
             <div class="toolbar">
                 <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Search by name / phone" id="searchInput"></div>
@@ -146,7 +157,7 @@
     </div>
 </div>
 
-<!-- ===== Edit Modal ===== -->
+<!-- ===== Edit Modal (只保留 General Information) ===== -->
 <div id="editModal">
     <div class="modal-box">
         <div class="modal-head"><h2><i class="fas fa-user-edit"></i> Edit Client</h2><button class="close" onclick="closeEditModal()">&times;</button></div>
@@ -158,41 +169,6 @@
                 <div class="frow"><label>Mobile Number</label><input type="text" placeholder="e.g. 012-3456789"></div>
                 <div class="frow"><label>Email Address</label><input type="email" placeholder="example@email.com"></div>
                 <div class="frow"><label>Address</label><input type="text" placeholder="Enter full address"></div>
-            </div>
-            <div class="fsection">
-                <h3><i class="fas fa-users"></i> Family Information</h3>
-                <div class="frow"><label>Spouse (with Will?)</label><div class="ig"><label><input type="radio" name="spouse_will" value="yes"> Yes</label><label><input type="radio" name="spouse_will" value="no" checked> No</label><label><input type="radio" name="spouse_will" value="n_a"> N/A</label></div></div>
-                <div class="frow"><label>Children &lt; 21</label><input type="number" placeholder="0" class="small"></div>
-                <div class="frow"><label>Children &gt; 21</label><input type="number" placeholder="0" class="small"></div>
-                <div class="frow"><label>Grandparents alive?</label><div class="ig"><label><input type="radio" name="grandparents" value="yes"> Yes</label><label><input type="radio" name="grandparents" value="no" checked> No</label></div></div>
-                <div class="frow"><label>Parents alive?</label><div class="ig"><label><input type="radio" name="parents" value="yes"> Yes</label><label><input type="radio" name="parents" value="no" checked> No</label></div></div>
-                <div class="frow"><label>Brothers & Sisters</label><input type="text" placeholder="e.g. 2 brothers, 1 sister" class="half"></div>
-            </div>
-            <div class="fsection">
-                <h3><i class="fas fa-building"></i> Assets Information</h3>
-                <div class="sub-title">Movable Assets:</div>
-                <div class="frow"><label>Bank / Savings</label><input type="text" placeholder="e.g. CIMB, Maybank"></div>
-                <div class="frow"><label>Unit Trust</label><input type="text" placeholder="e.g. Public Mutual"></div>
-                <div class="frow"><label>Share / Equity</label><input type="text" placeholder="e.g. KLSE stocks"></div>
-                <div class="frow"><label>Investment</label><input type="text" placeholder="e.g. Gold, bonds"></div>
-                <div class="frow"><label>Motor Vehicle</label><input type="text" placeholder="e.g. Toyota, BMW"></div>
-                <div class="frow"><label>Company / Business</label><input type="text" placeholder="e.g. Sdn Bhd"></div>
-                <div class="sub-title">Immovable Assets:</div>
-                <div class="frow"><label>HDB / Apartment</label><input type="text" placeholder="e.g. HDB block 123"></div>
-                <div class="frow"><label>Private Properties</label><input type="text" placeholder="e.g. Landed house"></div>
-                <div class="frow"><label>Land</label><input type="text" placeholder="e.g. Agricultural land"></div>
-                <div class="frow"><label>Others</label><input type="text" placeholder="Other assets"></div>
-            </div>
-            <div class="fsection">
-                <h3><i class="fas fa-check-list"></i> Checklist</h3>
-                <div class="frow"><label>Nationality</label><input type="text" placeholder="e.g. Malaysian"></div>
-                <div class="frow"><label>Cover assets in:</label><div class="ig"><label><input type="checkbox" value="Malaysia"> Malaysia</label><label><input type="checkbox" value="Singapore"> Singapore</label><label><input type="checkbox" value="Brunei"> Brunei</label><label><input type="checkbox" value="Others"> Others</label></div></div>
-                <div class="frow"><label>Understand English?</label><div class="ig"><label><input type="radio" name="english" value="yes"> Yes</label><label><input type="radio" name="english" value="no" checked> No</label></div></div>
-                <div class="frow"><label>Special Circumstances:</label><div class="ig"><label><input type="checkbox" value="blind"> Blind</label><label><input type="checkbox" value="illiterate"> Illiterate</label><label><input type="checkbox" value="others"> Others</label></div></div>
-                <div class="frow"><label>Marital Status:</label><div class="ig"><label><input type="radio" name="marital" value="single"> Single</label><label><input type="radio" name="marital" value="married" checked> Married</label><label><input type="radio" name="marital" value="divorced"> Divorced</label><label><input type="radio" name="marital" value="widowed"> Widowed</label></div></div>
-                <div class="frow"><label>Debt or Loans?</label><div class="ig"><label><input type="checkbox" value="car"> Car Loan</label><label><input type="checkbox" value="home"> Home Loan</label><label><input type="checkbox" value="personal"> Personal Loan</label><label><input type="checkbox" value="others"> Others</label></div></div>
-                <div class="frow"><label>In Progress of:</label><div class="ig"><label><input type="checkbox" value="pregnant"> Pregnant</label><label><input type="checkbox" value="new_marriage"> New Marriage</label><label><input type="checkbox" value="others"> Others</label></div></div>
-                <div class="frow"><label>Health Issues?</label><div class="ig"><label><input type="radio" name="health" value="yes"> Yes</label><label><input type="radio" name="health" value="no" checked> No</label></div></div>
             </div>
             <div class="modal-btns">
                 <button type="button" class="btn btn-cancel" onclick="closeEditModal()">Cancel</button>
@@ -295,7 +271,8 @@
 
             <div class="modal-btns">
                 <button type="button" class="btn btn-cancel" onclick="closeRiskModal()">Close</button>
-                <button type="button" class="btn btn-save-risk" onclick="saveRiskAssessment()"><i class="fas fa-save"></i> Save Assessment</button>
+                <!-- 以下按钮文字已修改为 Go to Check result -->
+                <button type="button" class="btn btn-save-risk" onclick="saveRiskAssessment()"><i class="fas fa-save"></i> Go to Check result</button>
             </div>
         </div>
     </div>
@@ -307,6 +284,9 @@ const clients = [
     {id:2, name:'Li Fang', phone:'13987654321', status:'done', riskScore:3, updated:'2026-06-10'},
     {id:3, name:'Wang Qiang', phone:'13755556666', status:'pending', riskScore:17, updated:'2026-06-12'}
 ];
+
+// 保存原始 modal-body 的 HTML（含问卷和按钮），用于每次打开时恢复
+let originalRiskModalHTML = '';
 
 function gR(s){return s<=6?'Low':s<=15?'Moderate':'High'}
 function gC(s){return s<=6?'low':s<=15?'moderate':'high'}
@@ -339,7 +319,7 @@ function render(data){
             const c=clients.find(x=>x.id==id);
             if(!c) return;
             if(this.classList.contains('btn-plan')){
-                window.open('plan/epchecklist.php?id='+id,'_blank');
+                window.location.href = 'plan/myassets.php?id='+id;
             } else if(this.classList.contains('btn-edit')){
                 openEditModal(id);
             } else if(this.classList.contains('btn-delete')){
@@ -387,7 +367,6 @@ document.getElementById('addForm').onsubmit=function(e){
     }
     alert('✅ New client added: ' + name + ' ('+contact+') - Status: '+status);
     closeAddModal();
-    // The actual addition logic can be added here.
 };
 
 // ---- Edit Modal ----
@@ -403,11 +382,26 @@ document.getElementById('editModal').onclick=function(e){if(e.target===this)clos
 document.getElementById('editForm').onsubmit=function(e){e.preventDefault();alert('✅ Changes saved!');closeEditModal();};
 
 // ---- Risk Modal ----
+// 页面加载时保存原始 modal-body 内容
+document.addEventListener('DOMContentLoaded', function() {
+    const modalBody = document.querySelector('#riskModal .modal-body');
+    if (modalBody) {
+        originalRiskModalHTML = modalBody.innerHTML;
+    }
+});
+
 function openRiskModal(clientId){
+    // 每次打开时恢复原始问卷内容
+    const modalBody = document.querySelector('#riskModal .modal-body');
+    if (modalBody && originalRiskModalHTML) {
+        modalBody.innerHTML = originalRiskModalHTML;
+    }
+    // 存储 clientId 以供后续使用
+    document.getElementById('riskModal').dataset.clientId = clientId;
     document.getElementById('riskModal').style.display='block';
     document.body.style.overflow='hidden';
-    document.getElementById('riskModal').dataset.clientId = clientId;
 }
+
 function closeRiskModal(){
     document.getElementById('riskModal').style.display='none';
     document.body.style.overflow='auto';
@@ -415,21 +409,58 @@ function closeRiskModal(){
 document.getElementById('riskModal').onclick=function(e){
     if(e.target===this) closeRiskModal();
 };
+
+// 点击 "Go to Check result" 时显示风险结果
 function saveRiskAssessment(){
-    const checkedItems = [];
-    document.querySelectorAll('#riskModal .ck-item input[type="checkbox"]:checked').forEach(function(cb){
-        const label = cb.nextElementSibling;
-        if(label) checkedItems.push(label.textContent.trim());
-    });
-    const clientId = document.getElementById('riskModal').dataset.clientId || 'unknown';
-    const client = clients.find(c => c.id == clientId);
-    const clientName = client ? client.name : 'Client #' + clientId;
-    if(checkedItems.length === 0){
-        alert('No items selected. Please tick the relevant situations before saving.');
+    const clientId = document.getElementById('riskModal').dataset.clientId;
+    if (!clientId) {
+        alert('Client ID not found.');
         return;
     }
-    alert('✅ Risk assessment saved for ' + clientName + '.\nSelected items: ' + checkedItems.length + ' item(s)');
-    closeRiskModal();
+    const client = clients.find(c => c.id == clientId);
+    if (!client) {
+        alert('Client not found.');
+        return;
+    }
+
+    const score = client.riskScore;
+    let level, levelClass, descText;
+
+    if (score <= 6) {
+        level = 'LOW RISK';
+        levelClass = 'low';
+        descText = `This presumes that you already have an existing Will held in proper custody.<br>
+        It is prudent to review and update your Will periodically with your Planner to ensure it continues to reflect your current wishes and circumstances.<br>
+        We recommend doing this at least once every two to three years, or whenever there are significant changes in your life or financial situation.`;
+    } else if (score <= 15) {
+        level = 'MODERATE RISK';
+        levelClass = 'moderate';
+        descText = `It appears that your current Will, if you have one, is inadequate and does not comprehensively address your estate planning objectives.<br>
+        This issue can be rectified through a consultation with your Planner, who can help identify and address any gaps by drafting a new Will or establishing Trusts.`;
+    } else {
+        level = 'RISKY TO HIGH RISK';
+        levelClass = 'high';
+        descText = `Your estate affairs may be fraught with delays and disputes among your family members.<br>
+        The distribution outcome could be unsatisfactory for certain beneficiaries.<br>
+        There are likely to be higher costs, leakages and legal expenses in sorting out the estate.<br>
+        There is an urgent need to address your estate affairs, and you should meet with your Planner as soon as possible.`;
+    }
+
+    // 构建结果 HTML，替换模态框内容
+    const modalBody = document.querySelector('#riskModal .modal-body');
+    modalBody.innerHTML = `
+        <div class="risk-result" style="padding: 10px 0;">
+            <h3 style="font-size:1.2rem; color:#1a2c3e; margin-bottom:5px;">WHAT'S YOUR SCORE AND WHERE DO YOU STAND?</h3>
+            <div style="font-size:2.2rem; font-weight:700; color:#1a2c3e; margin:10px 0 5px;">${score} points</div>
+            <div style="font-size:1.3rem; font-weight:600; margin-bottom:15px; padding:6px 18px; border-radius:40px; display:inline-block; background:${levelClass==='low'?'#e0f0e6':levelClass==='moderate'?'#fef0e0':'#fde8e8'}; color:${levelClass==='low'?'#1f7a5a':levelClass==='moderate'?'#b87a1f':'#b33c3c'};">${level}</div>
+            <div style="background:#f8fafd; border-radius:16px; padding:18px 22px; margin-top:15px; font-size:0.95rem; line-height:1.6; color:#1f3a52;">
+                ${descText}
+            </div>
+        </div>
+        <div class="modal-btns" style="margin-top:20px;">
+            <button type="button" class="btn btn-cancel" onclick="closeRiskModal()">Close</button>
+        </div>
+    `;
 }
 </script>
 </body>

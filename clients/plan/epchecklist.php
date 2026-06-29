@@ -1,4 +1,5 @@
 <?php
+$activePage = 'clients';
 // Get client ID from URL parameter
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
@@ -9,32 +10,64 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estate Planning Checklist · SmartWills</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
+        /* 固定侧边栏和顶栏，内容滚动 */
+        html, body {
+            height: 100%;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
-        body {
-            background: #f2f6fb;
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 30px 20px;
+        .wrapper {
             display: flex;
-            justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
         }
-        .page-wrapper {
-            max-width: 860px;
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            overflow-y: auto;
+            z-index: 1000;
+            background: #fff;
+            border-right: 1px solid #eef2f8;
+        }
+        .main-content {
+            margin-left: 250px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            flex: 1;
+        }
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: #fff;
+            border-bottom: 1px solid #eef2f8;
+        }
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 20px 0;
+        }
+
+        /* Checklist 铺满宽度（去除居中限制） */
+        .checklist-wrapper {
             width: 100%;
+            max-width: none;
+            margin: 0;
             background: #ffffff;
             border-radius: 32px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-            padding: 35px 40px 30px;
+            padding: 24px 30px 30px;
             transition: 0.2s;
         }
         @media (max-width: 600px) {
-            .page-wrapper {
+            .checklist-wrapper {
                 padding: 20px 18px;
             }
         }
@@ -58,6 +91,42 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         }
         .header h1 i {
             color: #b30707;
+        }
+
+        /* 客户信息样式 - 无背景框，仅头像+文字 */
+        .header .client-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header .client-info .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e6f0fa;
+            color: #2d7fb9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+        .header .client-info .client-name-text {
+            font-weight: 600;
+            color: #1e466e;
+            font-size: 1.05rem;
+        }
+        @media (max-width: 600px) {
+            .header .client-info .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            .header .client-info .client-name-text {
+                font-size: 0.9rem;
+            }
         }
 
         .question-group {
@@ -129,7 +198,8 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             border: 1px solid #d0dce8;
             border-radius: 30px;
             font-size: 0.95rem;
-            width: 220px;
+            width: 100%;
+            max-width: 400px;
             outline: none;
             transition: 0.2s;
         }
@@ -142,7 +212,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             font-size: 0.8rem;
             margin-left: 12px;
         }
-
         .btn-row {
             display: flex;
             justify-content: space-between;
@@ -188,168 +257,187 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 justify-content: center;
             }
             .text-input input {
-                width: 100%;
+                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-<div class="page-wrapper">
-    <div class="header">
-        <h1><i class="fas fa-clipboard-list"></i> Estate Planning Checklist</h1>
+<div class="wrapper">
+    <?php include '../../layouts/sidebar.php'; ?>
+    <div class="main-content">
+        <?php include '../../layouts/topbar.php'; ?>
+        <div class="content">
+            <div class="checklist-wrapper">
+                <div class="header">
+                    <h1><i class="fas fa-clipboard-list"></i> Estate Planning Checklist</h1>
+                    <!-- 客户信息区域（无背景框） -->
+                    <div class="client-info">
+                        <span class="avatar">
+                            <?php 
+                                $initial = $clientId ? strtoupper(substr(trim($clientName), 0, 1)) : '?';
+                                echo $initial;
+                            ?>
+                        </span>
+                        <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
+                    </div>
+                </div>
+
+                <form id="checklistForm" method="POST" action="reviewresources.php">
+                    <input type="hidden" name="client_id" value="<?php echo $clientId; ?>">
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">1</span> Have you created an estate plan to ensure your assets are distributed according to your wishes and benefit your loved ones?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q1" value="Yes"> Yes</label>
+                            <label><input type="radio" name="q1" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">2</span> Do you know that your assets might be frozen whether or not you have a Will?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q2" value="Yes, I am aware"> Yes, I am aware</label>
+                            <label><input type="radio" name="q2" value="No, I am not aware"> No, I am not aware</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">3</span> Have you written a Will as part of your estate planning?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q3" value="Yes" class="q3_radio"> Yes</label>
+                            <label><input type="radio" name="q3" value="No" class="q3_radio"> No</label>
+                        </div>
+
+                        <div id="q3_yes_sub" style="display:none;">
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">3.1</span> Whom have you appointed as the executor in your Will?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q3_1_yes" value="Spouse"> Spouse</label>
+                                    <label><input type="radio" name="q3_1_yes" value="Parents"> Parents</label>
+                                    <label><input type="radio" name="q3_1_yes" value="Children"> Children</label>
+                                    <label><input type="radio" name="q3_1_yes" value="Siblings"> Siblings</label>
+                                    <label><input type="radio" name="q3_1_yes" value="Lawyer"> Lawyer</label>
+                                    <label><input type="radio" name="q3_1_yes" value="Others"> Others</label>
+                                </div>
+                            </div>
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">3.2</span> Does the executor you have chosen have the ability to fulfil the below responsibilities?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q3_2_yes" value="Yes"> Yes</label>
+                                    <label><input type="radio" name="q3_2_yes" value="No"> No</label>
+                                </div>
+                                <div style="margin-top:8px; font-size:0.85rem; color:#4a6f8a; background:#f8fafd; padding:10px 16px; border-radius:12px;">
+                                    • Obtain Documents: Secure an extract of the Will and the Death Certificate.<br>
+                                    • Submit Will and Information: Present the original Will along with a list of assets and liabilities.<br>
+                                    • Apply for Probate: File for a Grant of Probate.<br>
+                                    • Attend Court Hearing: Participate in the court hearing for the probate application.<br>
+                                    • Manage Estate: Once probate is granted, collect all assets to settle debts and liabilities.<br>
+                                    • Distribute Assets: Allocate the remaining assets according to the Will.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="q3_no_sub" style="display:none;">
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">3.1</span> Are you aware that if you don’t have a Will, all legal beneficiaries (such as parents, spouses, and children) must reach a consensus to appoint a single representative, known as an administrator, to execute your estate?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q3_1_no" value="Yes, I am aware"> Yes, I am aware</label>
+                                    <label><input type="radio" name="q3_1_no" value="No, I have no idea"> No, I have no idea</label>
+                                </div>
+                            </div>
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">3.2</span> Do you have any worries about whether the administrator is capable of effectively managing your estate and making necessary arrangements before distributing assets to your beneficiaries?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q3_2_no" value="Yes"> Yes</label>
+                                    <label><input type="radio" name="q3_2_no" value="No"> No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">4</span> Are you aware that your executor or administrator will need to settle all outstanding debts and taxes before they can distribute the estate to your beneficiaries?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q4" value="I am aware"> I am aware</label>
+                            <label><input type="radio" name="q4" value="I am not aware"> I am not aware</label>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">5</span> Have you allocated sufficient funds in the estate to cover the administration fees and other related expenses for the executor/administrator?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q5_funds" value="Yes" class="q5_radio"> Yes</label>
+                            <label><input type="radio" name="q5_funds" value="No" class="q5_radio"> No</label>
+                        </div>
+                        <div class="sub-question" id="q5_1_group" style="display:none;">
+                            <div class="question-text"><span class="qnum">5.1</span> <span id="q5_1_label">Could you please specify the amount of funds you have set aside to cover the administration fees and related expenses for the executor / administrator?</span></div>
+                            <div class="text-input">
+                                <input type="text" name="q5_1_amount" placeholder="e.g. $50,000">
+                                <span class="hint">USD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">6</span> Do you have minor children?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q6" value="Yes" class="q6_radio"> Yes</label>
+                            <label><input type="radio" name="q6" value="No" class="q6_radio"> No</label>
+                        </div>
+                        <div id="q6_sub" style="display:none;">
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">6.1</span> Are you aware that you need to appoint a guardian to take care of your minor children?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q6_1" value="Yes"> Yes</label>
+                                    <label><input type="radio" name="q6_1" value="No"> No</label>
+                                </div>
+                            </div>
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">6.2</span> Whom would you choose to appoint as a guardian to care for your minor children in the event of an unexpected circumstance?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q6_2" value="Spouse"> Spouse</label>
+                                    <label><input type="radio" name="q6_2" value="Parents"> Parents</label>
+                                    <label><input type="radio" name="q6_2" value="Siblings"> Siblings</label>
+                                    <label><input type="radio" name="q6_2" value="Others"> Others</label>
+                                </div>
+                            </div>
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">6.3</span> Is your potential guardian financially prepared and capable of providing for your children’s needs?</div>
+                                <div class="options-group">
+                                    <label><input type="radio" name="q6_3" value="Yes"> Yes</label>
+                                    <label><input type="radio" name="q6_3" value="No"> No</label>
+                                </div>
+                            </div>
+                            <div class="sub-question">
+                                <div class="question-text"><span class="qnum">6.4</span> How much will you allocate to ensure your guardian can adequately cover the basic needs of your minor children?</div>
+                                <div class="text-input">
+                                    <input type="text" name="q6_4_amount" placeholder="e.g. $100,000">
+                                    <span class="hint">USD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="question-group">
+                        <div class="question-text"><span class="qnum">7</span> Would you like to understand how much funding is necessary to protect a family and estate in the event of someone's passing?</div>
+                        <div class="options-group">
+                            <label><input type="radio" name="q7" value="Yes"> Yes</label>
+                            <label><input type="radio" name="q7" value="No"> No</label>
+                        </div>
+                    </div>
+
+                    <div class="btn-row">
+                        <!-- 修改：按钮文字改为 "Back to My Assets"，跳转到 myassets.php 并携带客户 ID -->
+                        <button type="button" class="btn btn-back" onclick="window.location.href='myassets.php?id=<?php echo $clientId; ?>';">
+                            <i class="fas fa-arrow-left"></i> Back to My Assets
+                        </button>
+                        <button type="submit" class="btn btn-next">Go to Estate Fund Need Analysis</i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <form id="checklistForm" method="POST" action="reviewresources.php">
-        <input type="hidden" name="client_id" value="<?php echo $clientId; ?>">
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">1</span> Have you created an estate plan to ensure your assets are distributed according to your wishes and benefit your loved ones?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q1" value="Yes"> Yes</label>
-                <label><input type="radio" name="q1" value="No"> No</label>
-            </div>
-        </div>
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">2</span> Do you know that your assets might be frozen whether or not you have a Will?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q2" value="Yes, I am aware"> Yes, I am aware</label>
-                <label><input type="radio" name="q2" value="No, I am not aware"> No, I am not aware</label>
-            </div>
-        </div>
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">3</span> Have you written a Will as part of your estate planning?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q3" value="Yes" class="q3_radio"> Yes</label>
-                <label><input type="radio" name="q3" value="No" class="q3_radio"> No</label>
-            </div>
-
-            <div id="q3_yes_sub" style="display:none;">
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">3.1</span> Whom have you appointed as the executor in your Will?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q3_1_yes" value="Spouse"> Spouse</label>
-                        <label><input type="radio" name="q3_1_yes" value="Parents"> Parents</label>
-                        <label><input type="radio" name="q3_1_yes" value="Children"> Children</label>
-                        <label><input type="radio" name="q3_1_yes" value="Siblings"> Siblings</label>
-                        <label><input type="radio" name="q3_1_yes" value="Lawyer"> Lawyer</label>
-                        <label><input type="radio" name="q3_1_yes" value="Others"> Others</label>
-                    </div>
-                </div>
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">3.2</span> Does the executor you have chosen have the ability to fulfil the below responsibilities?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q3_2_yes" value="Yes"> Yes</label>
-                        <label><input type="radio" name="q3_2_yes" value="No"> No</label>
-                    </div>
-                    <div style="margin-top:8px; font-size:0.85rem; color:#4a6f8a; background:#f8fafd; padding:10px 16px; border-radius:12px;">
-                        • Obtain Documents: Secure an extract of the Will and the Death Certificate.<br>
-                        • Submit Will and Information: Present the original Will along with a list of assets and liabilities.<br>
-                        • Apply for Probate: File for a Grant of Probate.<br>
-                        • Attend Court Hearing: Participate in the court hearing for the probate application.<br>
-                        • Manage Estate: Once probate is granted, collect all assets to settle debts and liabilities.<br>
-                        • Distribute Assets: Allocate the remaining assets according to the Will.
-                    </div>
-                </div>
-            </div>
-
-            <div id="q3_no_sub" style="display:none;">
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">3.1</span> Are you aware that if you don’t have a Will, all legal beneficiaries (such as parents, spouses, and children) must reach a consensus to appoint a single representative, known as an administrator, to execute your estate?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q3_1_no" value="Yes, I am aware"> Yes, I am aware</label>
-                        <label><input type="radio" name="q3_1_no" value="No, I have no idea"> No, I have no idea</label>
-                    </div>
-                </div>
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">3.2</span> Do you have any worries about whether the administrator is capable of effectively managing your estate and making necessary arrangements before distributing assets to your beneficiaries?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q3_2_no" value="Yes"> Yes</label>
-                        <label><input type="radio" name="q3_2_no" value="No"> No</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">4</span> Are you aware that your executor or administrator will need to settle all outstanding debts and taxes before they can distribute the estate to your beneficiaries?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q4" value="I am aware"> I am aware</label>
-                <label><input type="radio" name="q4" value="I am not aware"> I am not aware</label>
-            </div>
-        </div>
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">5</span> Have you allocated sufficient funds in the estate to cover the administration fees and other related expenses for the executor/administrator?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q5_funds" value="Yes" class="q5_radio"> Yes</label>
-                <label><input type="radio" name="q5_funds" value="No" class="q5_radio"> No</label>
-            </div>
-            <div class="sub-question" id="q5_1_group" style="display:none;">
-                <div class="question-text"><span class="qnum">5.1</span> <span id="q5_1_label">Could you please specify the amount of funds you have set aside to cover the administration fees and related expenses for the executor / administrator?</span></div>
-                <div class="text-input">
-                    <input type="text" name="q5_1_amount" placeholder="e.g. $50,000">
-                    <span class="hint">USD</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">6</span> Do you have minor children?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q6" value="Yes" class="q6_radio"> Yes</label>
-                <label><input type="radio" name="q6" value="No" class="q6_radio"> No</label>
-            </div>
-            <div id="q6_sub" style="display:none;">
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">6.1</span> Are you aware that you need to appoint a guardian to take care of your minor children?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q6_1" value="Yes"> Yes</label>
-                        <label><input type="radio" name="q6_1" value="No"> No</label>
-                    </div>
-                </div>
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">6.2</span> Whom would you choose to appoint as a guardian to care for your minor children in the event of an unexpected circumstance?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q6_2" value="Spouse"> Spouse</label>
-                        <label><input type="radio" name="q6_2" value="Parents"> Parents</label>
-                        <label><input type="radio" name="q6_2" value="Siblings"> Siblings</label>
-                        <label><input type="radio" name="q6_2" value="Others"> Others</label>
-                    </div>
-                </div>
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">6.3</span> Is your potential guardian financially prepared and capable of providing for your children’s needs?</div>
-                    <div class="options-group">
-                        <label><input type="radio" name="q6_3" value="Yes"> Yes</label>
-                        <label><input type="radio" name="q6_3" value="No"> No</label>
-                    </div>
-                </div>
-                <div class="sub-question">
-                    <div class="question-text"><span class="qnum">6.4</span> How much will you allocate to ensure your guardian can adequately cover the basic needs of your minor children?</div>
-                    <div class="text-input">
-                        <input type="text" name="q6_4_amount" placeholder="e.g. $100,000">
-                        <span class="hint">USD</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="question-group">
-            <div class="question-text"><span class="qnum">7</span> Would you like to understand how much funding is necessary to protect a family and estate in the event of someone's passing?</div>
-            <div class="options-group">
-                <label><input type="radio" name="q7" value="Yes"> Yes</label>
-                <label><input type="radio" name="q7" value="No"> No</label>
-            </div>
-        </div>
-
-        <div class="btn-row">
-            <button type="button" class="btn btn-back" onclick="closeWindowOrRedirect();">
-                <i class="fas fa-arrow-left"></i> Back to Clients
-            </button>
-            <button type="submit" class="btn btn-next">Go to Review Resources <i class="fas fa-arrow-right"></i></button>
-        </div>
-    </form>
 </div>
 
 <script>
@@ -419,17 +507,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             }
         });
     })();
-
-    function closeWindowOrRedirect() {
-        try {
-            window.close();
-            setTimeout(function() {
-                window.location.href = '../clients.php';
-            }, 500);
-        } catch (e) {
-            window.location.href = '../clients.php';
-        }
-    }
 </script>
 </body>
 </html>
