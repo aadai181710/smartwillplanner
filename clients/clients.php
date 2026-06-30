@@ -12,7 +12,6 @@
         .page-header h1{font-size:1.5rem;color:#000;margin:0}
         .btn-primary{background:#630202;color:#fff;border:none;padding:8px 22px;border-radius:30px;font-weight:600;cursor:pointer}
         .btn-primary:hover{background:#1a5f8a}
-        
         .btn-total{
             background:transparent;
             color:#1f6390;
@@ -34,13 +33,11 @@
         .btn-total i{font-size:1.1rem;color:#4a7a9a}
         .btn-total:hover{background:#d0e4f2}
         .btn-total:active{transform:scale(.97)}
-
         .toolbar{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap}
         .toolbar .search-box{flex:1;min-width:200px;display:flex;align-items:center;background:#fff;border-radius:30px;padding:0 16px;border:1px solid #e0eaf2}
         .toolbar .search-box input{border:none;background:0 0;padding:8px 12px;width:100%;outline:0}
         .toolbar .filter-group{display:flex;gap:8px}
         .toolbar .filter-group select{padding:7px 14px;border-radius:30px;border:1px solid #e0eaf2;background:#fff;outline:0;cursor:pointer}
-
         .table-wrapper{background:#fff;border-radius:20px;border:1px solid #eef2f8;overflow:hidden}
         .table-scroll{overflow-x:auto;padding:0 20px 4px}
         .client-table{width:100%;border-collapse:collapse;font-size:.85rem}
@@ -64,8 +61,6 @@
         .btn-sm.btn-plan{background:#dff0e6;color:#1f7a5a}
         .btn-sm.btn-risk-analyze{background:#f0e6fa;color:#7a3f9e}
         footer{margin-top:20px;padding-top:10px;border-top:1px solid #e0eaf2;text-align:center;font-size:.65rem;color:#7c9ab3}
-
-        /* 模态框样式 */
         #editModal, #riskModal, #addModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;overflow-y:auto;padding:30px 20px}
         .modal-box{max-width:960px;margin:0 auto;background:#fff;border-radius:32px;padding:30px 35px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
         #riskModal .modal-box{max-width:820px}
@@ -77,7 +72,6 @@
         .modal-head h2 i{color:#b30707}
         #riskModal .modal-head h2 i{color:#7a3f9e}
         .modal-head .close{background:0;border:0;font-size:1.8rem;cursor:pointer;color:#6f8ea3}
-
         .fsection{background:#f8fafd;border-radius:16px;padding:18px 22px;margin-bottom:16px}
         .fsection h3{font-size:1.05rem;color:#1a2c3e;margin-bottom:12px}
         .fsection h3 i{color:#b30707}
@@ -97,7 +91,6 @@
         .modal-btns .btn-cancel:hover{background:#dce4ed}
         .modal-btns .btn-save{background:#b30707;color:#fff}
         .modal-btns .btn-save:hover{background:#8f0505}
-
         #riskModal .modal-body .intro-text{font-size:.92rem;color:#1a2c3e;margin-bottom:18px;background:transparent;border:none;padding:0}
         #riskModal .risk-section{background:#fafcfe;border-radius:14px;padding:14px 18px;margin-bottom:14px;border:1px solid #eef2f8}
         #riskModal .risk-section h3{font-size:.95rem;color:#1a2c3e;margin-bottom:10px;font-weight:600;border-bottom:1px dashed #e0eaf2;padding-bottom:8px}
@@ -108,7 +101,6 @@
         #riskModal .risk-section .ck-item:hover{background:#f0f4fa;border-radius:6px}
         #riskModal .modal-btns .btn-save-risk{background:#7a3f9e;color:#fff}
         #riskModal .modal-btns .btn-save-risk:hover{background:#5f2f7a}
-
         @media(max-width:700px){.frow{flex-direction:column;align-items:stretch}.frow label{width:auto}.frow input{width:100%}.frow .ig{flex-direction:column;align-items:flex-start}}
     </style>
 </head>
@@ -156,8 +148,6 @@
         </div>
     </div>
 </div>
-
-<!-- ===== Edit Modal (只保留 General Information) ===== -->
 <div id="editModal">
     <div class="modal-box">
         <div class="modal-head"><h2><i class="fas fa-user-edit"></i> Edit Client</h2><button class="close" onclick="closeEditModal()">&times;</button></div>
@@ -177,8 +167,6 @@
         </form>
     </div>
 </div>
-
-<!-- ===== Add Client Modal ===== -->
 <div id="addModal">
     <div class="modal-box">
         <div class="modal-head">
@@ -204,8 +192,6 @@
         </form>
     </div>
 </div>
-
-<!-- ===== Risk Assessment Modal ===== -->
 <div id="riskModal">
     <div class="modal-box">
         <div class="modal-head">
@@ -217,8 +203,6 @@
                 <i class="fas fa-info-circle" style="color:#7a3f9e;margin-right:8px;"></i>
                 For us to serve you better, kindly tick where appropriate when any of the situations apply to you.
             </div>
-
-            <!-- Personal & Family Circumstances -->
             <div class="risk-section">
                 <h3><i class="fas fa-user"></i> Personal & Family Circumstances</h3>
                 <div class="ck-item"><input type="checkbox" id="risk_p1"><label for="risk_p1">I have no Will</label></div>
@@ -232,16 +216,12 @@
                 <div class="ck-item"><input type="checkbox" id="risk_p9"><label for="risk_p9">There is strong sibling rivalry among my children</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_p10"><label for="risk_p10">I have dependents, e.g. parents or parents-in-law whom I provide for</label></div>
             </div>
-
-            <!-- Executor, Guardian & Safekeeping Issues -->
             <div class="risk-section">
                 <h3><i class="fas fa-shield-alt"></i> Executor, Guardian &amp; Safekeeping Issues Circumstances</h3>
                 <div class="ck-item"><input type="checkbox" id="risk_e1"><label for="risk_e1">I am no longer in touch with the appointed executor</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_e2"><label for="risk_e2">I am no longer in touch with the appointed guardian</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_e3"><label for="risk_e3">I need to pass my Will to someone for safekeeping</label></div>
             </div>
-
-            <!-- Assets & Financial Complexity -->
             <div class="risk-section">
                 <h3><i class="fas fa-chart-pie"></i> Assets &amp; Financial Complexity</h3>
                 <div class="ck-item"><input type="checkbox" id="risk_a1"><label for="risk_a1">I have assets in joint names and need to understand the legal implications of such holdings</label></div>
@@ -250,16 +230,12 @@
                 <div class="ck-item"><input type="checkbox" id="risk_a4"><label for="risk_a4">I do not have a schedule of assets that details my assets and liabilities</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_a5"><label for="risk_a5">My family would need continuity of funds while waiting for grant of probate</label></div>
             </div>
-
-            <!-- Cross-Border Family & Legal Issues -->
             <div class="risk-section">
                 <h3><i class="fas fa-globe-asia"></i> Cross-Border Family &amp; Legal Issues</h3>
                 <div class="ck-item"><input type="checkbox" id="risk_c1"><label for="risk_c1">I have family members who are permanent residents or citizens of another jurisdiction</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_c2"><label for="risk_c2">I have family members who are married to foreigners</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_c3"><label for="risk_c3">I am a Muslim or from a religious faith where my estate must be divided in a certain manner</label></div>
             </div>
-
-            <!-- Business & Legacy Planning -->
             <div class="risk-section">
                 <h3><i class="fas fa-briefcase"></i> Business &amp; Legacy Planning</h3>
                 <div class="ck-item"><input type="checkbox" id="risk_b1"><label for="risk_b1">I wish to give a legacy to a charity but am not sure how this could be achieved</label></div>
@@ -268,31 +244,24 @@
                 <div class="ck-item"><input type="checkbox" id="risk_b4"><label for="risk_b4">I am a businessman and am exposed to business risks and liabilities</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_b5"><label for="risk_b5">I have properties and business interests that can provide for multi-generations or be maintained as long-term resources</label></div>
             </div>
-
             <div class="modal-btns">
                 <button type="button" class="btn btn-cancel" onclick="closeRiskModal()">Close</button>
-                <!-- 以下按钮文字已修改为 Go to Check result -->
                 <button type="button" class="btn btn-save-risk" onclick="saveRiskAssessment()"><i class="fas fa-save"></i> Go to Check result</button>
             </div>
         </div>
     </div>
 </div>
-
 <script>
 const clients = [
     {id:1, name:'Zhang Wei', phone:'13812345678', status:'active', riskScore:8, updated:'2026-06-15'},
     {id:2, name:'Li Fang', phone:'13987654321', status:'done', riskScore:3, updated:'2026-06-10'},
     {id:3, name:'Wang Qiang', phone:'13755556666', status:'pending', riskScore:17, updated:'2026-06-12'}
 ];
-
-// 保存原始 modal-body 的 HTML（含问卷和按钮），用于每次打开时恢复
 let originalRiskModalHTML = '';
-
 function gR(s){return s<=6?'Low':s<=15?'Moderate':'High'}
 function gC(s){return s<=6?'low':s<=15?'moderate':'high'}
 function gSL(s){return {active:'Active',done:'Completed',pending:'Pending'}[s]||s}
 function gSC(s){return {active:'active',done:'done',pending:'pending'}[s]||'pending'}
-
 function render(data){
     const t=document.getElementById('clientTableBody');
     if(!data.length){t.innerHTML='<tr><td colspan="7" style="text-align:center;padding:40px;color:#8aa4bc;">No clients found</td></tr>';return}
@@ -311,7 +280,6 @@ function render(data){
             </div></td>
         </tr>
     `).join('');
-
     document.querySelectorAll('[data-id]').forEach(b=>{
         b.onclick=function(e){
             e.stopPropagation();
@@ -330,9 +298,7 @@ function render(data){
         };
     });
 }
-
 render(clients);
-
 document.getElementById('searchInput').oninput=function(){
     const k=this.value.trim().toLowerCase();
     render(clients.filter(c=>c.name.toLowerCase().includes(k)||(c.phone&&c.phone.includes(k))));
@@ -345,8 +311,6 @@ document.getElementById('filterStatus').onchange=function(){
     const v=this.value;
     render(clients.filter(c=>v==='all'||c.status===v));
 };
-
-// ---- Add Client ----
 document.getElementById('addClientBtn').onclick=function(){
     document.getElementById('addModal').style.display='block';
     document.body.style.overflow='hidden';
@@ -368,8 +332,6 @@ document.getElementById('addForm').onsubmit=function(e){
     alert('✅ New client added: ' + name + ' ('+contact+') - Status: '+status);
     closeAddModal();
 };
-
-// ---- Edit Modal ----
 function openEditModal(id){
     document.getElementById('editModal').style.display='block';
     document.body.style.overflow='hidden';
@@ -380,28 +342,21 @@ function closeEditModal(){
 }
 document.getElementById('editModal').onclick=function(e){if(e.target===this)closeEditModal();};
 document.getElementById('editForm').onsubmit=function(e){e.preventDefault();alert('✅ Changes saved!');closeEditModal();};
-
-// ---- Risk Modal ----
-// 页面加载时保存原始 modal-body 内容
 document.addEventListener('DOMContentLoaded', function() {
     const modalBody = document.querySelector('#riskModal .modal-body');
     if (modalBody) {
         originalRiskModalHTML = modalBody.innerHTML;
     }
 });
-
 function openRiskModal(clientId){
-    // 每次打开时恢复原始问卷内容
     const modalBody = document.querySelector('#riskModal .modal-body');
     if (modalBody && originalRiskModalHTML) {
         modalBody.innerHTML = originalRiskModalHTML;
     }
-    // 存储 clientId 以供后续使用
     document.getElementById('riskModal').dataset.clientId = clientId;
     document.getElementById('riskModal').style.display='block';
     document.body.style.overflow='hidden';
 }
-
 function closeRiskModal(){
     document.getElementById('riskModal').style.display='none';
     document.body.style.overflow='auto';
@@ -409,8 +364,6 @@ function closeRiskModal(){
 document.getElementById('riskModal').onclick=function(e){
     if(e.target===this) closeRiskModal();
 };
-
-// 点击 "Go to Check result" 时显示风险结果
 function saveRiskAssessment(){
     const clientId = document.getElementById('riskModal').dataset.clientId;
     if (!clientId) {
@@ -422,10 +375,8 @@ function saveRiskAssessment(){
         alert('Client not found.');
         return;
     }
-
     const score = client.riskScore;
     let level, levelClass, descText;
-
     if (score <= 6) {
         level = 'LOW RISK';
         levelClass = 'low';
@@ -445,8 +396,6 @@ function saveRiskAssessment(){
         There are likely to be higher costs, leakages and legal expenses in sorting out the estate.<br>
         There is an urgent need to address your estate affairs, and you should meet with your Planner as soon as possible.`;
     }
-
-    // 构建结果 HTML，替换模态框内容
     const modalBody = document.querySelector('#riskModal .modal-body');
     modalBody.innerHTML = `
         <div class="risk-result" style="padding: 10px 0;">

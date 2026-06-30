@@ -22,7 +22,7 @@ $activePage = 'education';
             border: 2px solid #e0eaf2;
             border-radius: 16px;
             padding: 18px 22px;
-            background: #fde8e8;  
+            background: #fde8e8;
             min-width: 220px;
         }
       
@@ -37,7 +37,7 @@ $activePage = 'education';
             font-weight: 700;
             color: #0b0e11;
             letter-spacing: 0.3px;
-            text-align: left;     
+            text-align: left;
         }
 
         .progress-header .percentage {
@@ -45,8 +45,8 @@ $activePage = 'education';
             font-weight: 700;
             color: #0b0e11;
             line-height: 1.2;
-            text-align: right;   
-            margin-top: -4px;      
+            text-align: right;
+            margin-top: -4px;
         }
         .progress-track {
             width: 100%;
@@ -136,11 +136,77 @@ $activePage = 'education';
             background: #a30006;
         }
 
+        /* ---------- Dropdown + Tabs ---------- */
         .tabs {
             display: flex;
             gap: 12px;
             margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
         }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-toggle {
+            background: #f0f4f9;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        .dropdown-toggle:hover {
+            background: #dce4ec;
+        }
+        .dropdown-toggle .arrow {
+            font-size: 0.7rem;
+            transition: transform 0.25s;
+        }
+        .dropdown-toggle .arrow.open {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #eef2f8;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            min-width: 140px;
+            padding: 6px 0;
+            z-index: 100;
+            list-style: none;
+            margin: 0;
+        }
+        .dropdown-menu.open {
+            display: block;
+        }
+        .dropdown-menu li {
+            padding: 8px 20px;
+            font-weight: 500;
+            color: #1a2c3e;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-size: 0.9rem;
+        }
+        .dropdown-menu li:hover {
+            background: #f0f4f9;
+        }
+        .dropdown-menu li.active {
+            background: #7f0004;
+            color: #fff;
+        }
+
         .tab {
             background: #f0f4f9;
             border: none;
@@ -150,6 +216,7 @@ $activePage = 'education';
             color: #2c3e50;
             cursor: pointer;
             transition: 0.2s;
+            font-size: 0.95rem;
         }
         .tab.active {
             background: #7f0004;
@@ -168,7 +235,6 @@ $activePage = 'education';
             gap: 24px;
         }
 
-        /* ----- Change the cards to Flex columns, and fix the buttons at the bottom. ----- */
         .course-card {
             background: #fff;
             border-radius: 16px;
@@ -177,7 +243,7 @@ $activePage = 'education';
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
-            height: 100%;                /* Ensure the cards in the same row have equal height */
+            height: 100%;
         }
 
         .course-image {
@@ -188,7 +254,7 @@ $activePage = 'education';
             background-image: linear-gradient(135deg, #c0d0e0 25%, #e0eaf2 50%, #c0d0e0 75%);
             background-size: 200% 200%;
             animation: shimmer 2s infinite;
-            flex-shrink: 0;              /* Prevent the image from being compressed */
+            flex-shrink: 0;
         }
         @keyframes shimmer {
             0% { background-position: 0% 0%; }
@@ -203,7 +269,7 @@ $activePage = 'education';
             margin: 0 0 12px 0;
             color: #555;
             font-size: 0.9rem;
-            flex: 1;                    /* To occupy the remaining space, push the button to the bottom. */
+            flex: 1;
         }
         .course-card button {
             background: #7f0004;
@@ -213,8 +279,8 @@ $activePage = 'education';
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
-            align-self: flex-start;      /* Button aligns to the left, but all buttons are on the same horizontal line */
-            margin-top: auto;            /* Ensure the button is fixed to the bottom */
+            align-self: flex-start;
+            margin-top: auto;
         }
         .course-card button:hover {
             background: #a30006;
@@ -283,10 +349,24 @@ $activePage = 'education';
                 </div>
             </div>
 
-            <!-- Tag bar -->
+            <!-- Tabs: Dropdown (All) + four independent buttons -->
             <div class="tabs" id="tabContainer">
-                <button class="tab" data-tab="all">All</button>
-                <button class="tab active" data-tab="sg">SG</button>
+                <!-- Dropdown for All -->
+                <div class="dropdown">
+                    <button class="dropdown-toggle tab" id="dropdownToggle">
+                        <span id="selectedLabel">All</span>
+                        <i class="fas fa-chevron-down arrow" id="dropdownArrow"></i>
+                    </button>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li data-tab="all" class="active">All</li>
+                        <li data-tab="sg">SG</li>
+                        <li data-tab="my">MY</li>
+                        <li data-tab="th">TH</li>
+                        <li data-tab="mywa">MYWA</li>
+                    </ul>
+                </div>
+                <!-- Four independent buttons -->
+                <button class="tab" data-tab="sg">SG</button>
                 <button class="tab" data-tab="my">MY</button>
                 <button class="tab" data-tab="th">TH</button>
                 <button class="tab" data-tab="mywa">MYWA</button>
@@ -331,8 +411,15 @@ $activePage = 'education';
         ]
     };
 
-    // The default display is SG (the initial active value is SG).
-    let currentTab = 'sg';
+    // DOM refs
+    const dropdownToggle = document.getElementById('dropdownToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const dropdownArrow = document.getElementById('dropdownArrow');
+    const selectedLabel = document.getElementById('selectedLabel');
+    const tabButtons = document.querySelectorAll('.tab:not(.dropdown-toggle)'); // the four independent buttons
+    const menuItems = dropdownMenu.querySelectorAll('li');
+
+    let currentTab = 'all';
 
     function renderCourses(tabKey) {
         const grid = document.getElementById('courseGrid');
@@ -355,22 +442,66 @@ $activePage = 'education';
         grid.innerHTML = html;
     }
 
-    function setupTabs() {
-        const tabs = document.querySelectorAll('.tab');
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                const tabKey = this.getAttribute('data-tab');
-                currentTab = tabKey;
-                renderCourses(tabKey);
-            });
+    // Update active states
+    function setActiveTab(tabKey) {
+        // Update dropdown menu items
+        menuItems.forEach(item => {
+            item.classList.toggle('active', item.getAttribute('data-tab') === tabKey);
         });
+        // Update selected label
+        const selectedText = tabKey === 'all' ? 'All' : tabKey.toUpperCase();
+        selectedLabel.textContent = selectedText;
+
+        // Update independent buttons
+        tabButtons.forEach(btn => {
+            const btnTab = btn.getAttribute('data-tab');
+            btn.classList.toggle('active', btnTab === tabKey);
+        });
+
+        // Render courses
+        renderCourses(tabKey);
+        currentTab = tabKey;
     }
 
+    // Dropdown toggle
+    dropdownToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('open');
+        dropdownArrow.classList.toggle('open');
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            dropdownMenu.classList.remove('open');
+            dropdownArrow.classList.remove('open');
+        }
+    });
+
+    // Dropdown item click
+    menuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            const tabKey = this.getAttribute('data-tab');
+            setActiveTab(tabKey);
+            dropdownMenu.classList.remove('open');
+            dropdownArrow.classList.remove('open');
+        });
+    });
+
+    // Independent button clicks
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabKey = this.getAttribute('data-tab');
+            setActiveTab(tabKey);
+            // Also close dropdown if open
+            dropdownMenu.classList.remove('open');
+            dropdownArrow.classList.remove('open');
+        });
+    });
+
+    // Initial: load 'all'
     document.addEventListener('DOMContentLoaded', function() {
-        renderCourses('sg');
-        setupTabs();
+        setActiveTab('all');
     });
 </script>
 </body>

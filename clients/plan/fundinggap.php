@@ -1,7 +1,7 @@
 <?php
 $activePage = 'clients';
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
+$clientName = 'Zhang Wei';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 固定侧边栏和顶栏，内容滚动 */
         html, body {
             height: 100%;
             margin: 0;
@@ -53,7 +52,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             overflow-y: auto;
             padding: 20px 20px 0;
         }
-
         .funding-wrapper {
             width: 100%;
             max-width: none;
@@ -69,7 +67,92 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 padding: 20px 18px;
             }
         }
-
+        .progress-steps {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 28px;
+            padding: 0 6px;
+        }
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e8ef;
+            z-index: 0;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .step .circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e0e8ef;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .step.active .circle {
+            background: #b30707;
+            box-shadow: 0 4px 10px rgba(179,7,7,0.25);
+        }
+        .step .label {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #7a93ab;
+            font-weight: 500;
+            line-height: 1.2;
+            max-width: 90px;
+            word-break: break-word;
+        }
+        .step.active .label {
+            color: #b30707;
+            font-weight: 700;
+        }
+        @media (max-width: 700px) {
+            .step .circle {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+            .step .label {
+                font-size: 0.6rem;
+                max-width: 60px;
+            }
+            .progress-steps::before {
+                top: 17px;
+            }
+        }
+        @media (max-width: 500px) {
+            .step .label {
+                font-size: 0.5rem;
+                max-width: 44px;
+            }
+            .step .circle {
+                width: 28px;
+                height: 28px;
+                font-size: 0.65rem;
+            }
+            .progress-steps::before {
+                top: 14px;
+            }
+        }
         .header {
             display: flex;
             align-items: center;
@@ -89,8 +172,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .header h1 i {
             color: #b30707;
         }
-
-        /* 客户信息样式 - 无背景框，仅头像+文字 */
         .header .client-info {
             display: flex;
             align-items: center;
@@ -125,8 +206,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 font-size: 0.9rem;
             }
         }
-
-        /* ---------- 折叠卡片样式 ---------- */
         .accordion-section {
             margin-bottom: 16px;
             border-radius: 16px;
@@ -186,7 +265,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             0% { opacity: 0; transform: translateY(-6px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
         .badge {
             background: #eef3f8;
             padding: 4px 16px;
@@ -194,7 +272,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             font-size: .9rem;
             color: #1e466e;
         }
-
         .row {
             display: flex;
             align-items: center;
@@ -230,7 +307,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             flex-shrink: 0;
             font-size: .9rem;
         }
-
         .policy-box {
             background: #f8fafd;
             border-radius: 16px;
@@ -247,7 +323,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             padding: 5px 10px;
             min-width: 100px;
         }
-
         .btn-sm {
             padding: 4px 16px;
             border-radius: 30px;
@@ -287,7 +362,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .btn-pdf:hover {
             background: #0f1f2e;
         }
-
         .summary-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -307,7 +381,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             font-weight: 600;
             color: #1e466e;
         }
-
         .total-row {
             display: flex;
             justify-content: space-between;
@@ -326,7 +399,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .deficit {
             color: #b30707;
         }
-
         .btns {
             display: flex;
             justify-content: space-between;
@@ -362,7 +434,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .btn-next:hover {
             background: #8f0505;
         }
-
         @media (max-width: 700px) {
             .row {
                 flex-direction: column;
@@ -404,23 +475,43 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="funding-wrapper">
+                <div class="progress-steps">
+                    <div class="step">
+                        <span class="circle">1</span>
+                        <span class="label">My Assets</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">2</span>
+                        <span class="label">Estate Planning Checklist</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">3</span>
+                        <span class="label">Estate Fund Need Analysis</span>
+                    </div>
+                    <div class="step active">
+                        <span class="circle">4</span>
+                        <span class="label">Funding Gap</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">5</span>
+                        <span class="label">Product Recommendations</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">6</span>
+                        <span class="label">Payment</span>
+                    </div>
+                </div>
                 <div class="header">
                     <h1><i class="fas fa-calculator"></i> Funding Gap</h1>
                     <div class="client-info">
                         <span class="avatar">
-                            <?php 
-                                $initial = $clientId ? strtoupper(substr(trim($clientName), 0, 1)) : '?';
-                                echo $initial;
-                            ?>
+                            <?php echo strtoupper(substr(trim($clientName), 0, 1)); ?>
                         </span>
                         <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
                     </div>
                 </div>
-
                 <form method="POST" action="recommendations.php?id=<?=$clientId?>">
                     <input type="hidden" name="client_id" value="<?=$clientId?>">
-
-                    <!-- ===== 卡片 Part 1: Movable Funds ===== -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-money-bill-wave"></i> Part 1: Movable Funds</span>
@@ -432,8 +523,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                             <div class="row"><label>3. Retirement Fund</label><input type="number" id="retire" value="500000" step="100" oninput="calc()"><span class="val" id="retireDisp">$ 500,000</span></div>
                         </div>
                     </div>
-
-                    <!-- ===== 卡片 Part 2: Insurance Policies ===== -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-shield-alt"></i> Part 2: Insurance Policies</span>
@@ -444,18 +533,14 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                                 <label style="width:auto;font-weight:400;flex:none;"><input type="radio" name="has_insurance" value="Yes" checked onchange="togglePolicies()"> Yes</label>
                                 <label style="width:auto;font-weight:400;flex:none;"><input type="radio" name="has_insurance" value="No" onchange="togglePolicies()"> No</label>
                             </div>
-
                             <div id="policiesWrap">
                                 <div id="policiesList"></div>
                                 <button type="button" class="btn-sm btn-add" onclick="addPolicy()"><i class="fas fa-plus"></i> Add Insurance Policy</button>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Summary（始终可见） -->
                     <div style="margin:24px 0 16px;font-weight:700;font-size:1.1rem;color:#1a2c3e;">Summary of existing insurance coverage</div>
                     <div id="summaryList"></div>
-
                     <div style="margin-top:20px;border-top:2px solid #e6edf4;padding-top:16px;">
                         <div class="summary-item"><span class="lbl">1. Cash In The Bank</span><span class="val" id="sCash">$ 20,000</span></div>
                         <div class="summary-item"><span class="lbl">2. Unit Trust or Investments</span><span class="val" id="sInvest">$ 200,000</span></div>
@@ -465,10 +550,8 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                         <div class="total-row"><span>Total Amount of Estate Fund Needed:</span><span class="val">$ 3,000,000</span></div>
                         <div class="total-row" id="surplusRow"><span>Surplus / Deficit</span><span class="val" id="surplusVal">$ 780,000</span></div>
                     </div>
-
                     <input type="hidden" name="total_movable" id="totalMovableHidden">
                     <input type="hidden" name="insurance_total" id="insuranceTotalHidden">
-
                     <div class="btns">
                         <a href="epchecklist.php?id=<?=$clientId?>" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back to Checklist</a>
                         <button type="submit" class="btn btn-next">Save & Continue <i class="fas fa-arrow-right"></i></button>
@@ -478,13 +561,11 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         </div>
     </div>
 </div>
-
 <script>
 function toggleAccordion(header) {
     const body = header.nextElementSibling;
     const arrow = header.querySelector('.arrow');
     const isOpen = body.classList.contains('open');
-    
     if (isOpen) {
         body.classList.remove('open');
         arrow.classList.remove('open');
@@ -493,10 +574,8 @@ function toggleAccordion(header) {
         arrow.classList.add('open');
     }
 }
-
 let policyCount = 0;
 const planTypes = ['Investment Link','Whole Life','Universal Life','Term Life','Personal Accident','Medical & Hospitalization','Endowment'];
-
 function addPolicy(data){
     policyCount++;
     const id = policyCount;
@@ -523,21 +602,17 @@ function addPolicy(data){
     document.getElementById('policiesList').appendChild(div);
     calc();
 }
-
 function removePolicy(id){
     document.getElementById('policy_'+id).remove();
     calc();
 }
-
 function togglePolicies(){
     const show = document.querySelector('input[name="has_insurance"]:checked').value === 'Yes';
     document.getElementById('policiesWrap').style.display = show ? 'block' : 'none';
     if(!show) document.getElementById('policiesList').innerHTML = '';
     calc();
 }
-
 function calc(){
-    // Part 1
     let cash = parseFloat(document.getElementById('cash').value)||0;
     let invest = parseFloat(document.getElementById('invest').value)||0;
     let retire = parseFloat(document.getElementById('retire').value)||0;
@@ -547,8 +622,6 @@ function calc(){
     document.getElementById('sCash').textContent = '$ '+cash.toLocaleString();
     document.getElementById('sInvest').textContent = '$ '+invest.toLocaleString();
     document.getElementById('sRetire').textContent = '$ '+retire.toLocaleString();
-
-    // Part 2 - Insurance
     let totalIns = 0;
     let summaryHTML = '';
     const boxes = document.querySelectorAll('.policy-box');
@@ -563,22 +636,17 @@ function calc(){
     });
     document.getElementById('summaryList').innerHTML = summaryHTML || '<div style="color:#6f8ea3;font-size:.9rem;">No insurance policies added.</div>';
     document.getElementById('sInsurance').textContent = '$ '+totalIns.toLocaleString();
-
-    // Totals
     let totalMovable = cash + invest + retire + totalIns;
     let estateNeed = 3000000;
     let surplus = totalMovable - estateNeed;
-
     document.getElementById('totalMovable').textContent = '$ '+totalMovable.toLocaleString();
     document.getElementById('totalMovableHidden').value = totalMovable;
     document.getElementById('insuranceTotalHidden').value = totalIns;
-
     const surplusEl = document.getElementById('surplusVal');
     surplusEl.textContent = '$ '+surplus.toLocaleString();
     surplusEl.className = 'val ' + (surplus >= 0 ? 'surplus' : 'deficit');
     document.getElementById('surplusRow').querySelector('span:first-child').textContent = surplus >= 0 ? 'Surplus' : 'Deficit';
 }
-// Init with sample data
 document.addEventListener('DOMContentLoaded', function(){
     addPolicy({company:'Prudential', plan:'Whole Life', life:500000});
     addPolicy({company:'Manulife', plan:'Term Life', term:1000000, ci:200000});

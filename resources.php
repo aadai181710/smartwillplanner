@@ -72,11 +72,26 @@
             cursor: pointer;
         }
         .btn-primary:hover { background: #1a5f8a; }
-        @media(max-width:850px) {
+
+        /* 响应式 */
+        @media (max-width: 1024px) {
             .resource-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media(max-width:480px) {
-            .resource-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            .resource-grid { gap: 16px; }
+            .res-card { padding: 20px 16px; }
+            .res-card h4 { font-size: 1rem; }
+            .res-card p { font-size: .8rem; }
+            .res-card .icon-wrap { width: 44px; height: 44px; font-size: 1.3rem; }
+            .btn-primary { padding: 6px 18px; font-size: .9rem; }
+        }
+        @media (max-width: 480px) {
+            .resource-grid { grid-template-columns: 1fr; gap: 14px; }
+            .res-card { padding: 16px 14px; }
+            .res-card h4 { font-size: .95rem; }
+            .res-card p { font-size: .75rem; }
+            .res-card .icon-wrap { width: 40px; height: 40px; font-size: 1.1rem; }
+            .btn-primary { padding: 5px 14px; font-size: .8rem; }
         }
     </style>
 </head>
@@ -86,7 +101,7 @@
     <div class="main-content">
         <?php include 'layouts/topbar.php'; ?>
         <div class="content">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                 <h1><i class="fas fa-database"></i> Resource Center</h1>
                 <button class="btn-primary" id="supportBtn"><i class="fas fa-headset"></i> Support & Ticketing</button>
             </div>

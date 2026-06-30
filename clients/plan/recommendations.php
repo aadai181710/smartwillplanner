@@ -1,7 +1,7 @@
 <?php
 $activePage = 'clients';
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
+$clientName = 'Zhang Wei';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 固定侧边栏和顶栏，内容滚动 */
         html, body {
             height: 100%;
             margin: 0;
@@ -53,8 +52,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             overflow-y: auto;
             padding: 20px 20px 0;
         }
-
-        /* Recommendations 铺满样式 */
         .rec-wrapper {
             width: 100%;
             max-width: none;
@@ -70,7 +67,92 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 padding: 20px 18px;
             }
         }
-
+        .progress-steps {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 28px;
+            padding: 0 6px;
+        }
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e8ef;
+            z-index: 0;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .step .circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e0e8ef;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .step.active .circle {
+            background: #b30707;
+            box-shadow: 0 4px 10px rgba(179,7,7,0.25);
+        }
+        .step .label {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #7a93ab;
+            font-weight: 500;
+            line-height: 1.2;
+            max-width: 90px;
+            word-break: break-word;
+        }
+        .step.active .label {
+            color: #b30707;
+            font-weight: 700;
+        }
+        @media (max-width: 700px) {
+            .step .circle {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+            .step .label {
+                font-size: 0.6rem;
+                max-width: 60px;
+            }
+            .progress-steps::before {
+                top: 17px;
+            }
+        }
+        @media (max-width: 500px) {
+            .step .label {
+                font-size: 0.5rem;
+                max-width: 44px;
+            }
+            .step .circle {
+                width: 28px;
+                height: 28px;
+                font-size: 0.65rem;
+            }
+            .progress-steps::before {
+                top: 14px;
+            }
+        }
         .header {
             display: flex;
             align-items: center;
@@ -90,8 +172,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .header h1 i {
             color: #b30707;
         }
-
-        /* 客户信息样式 - 无背景框，仅头像+文字 */
         .header .client-info {
             display: flex;
             align-items: center;
@@ -126,7 +206,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 font-size: 0.9rem;
             }
         }
-
         .badge {
             background: #eef3f8;
             padding: 4px 16px;
@@ -134,7 +213,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             font-size: .9rem;
             color: #1e466e;
         }
-
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -227,8 +305,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .btn-secondary:hover {
             background: #dce4ed;
         }
-
-        /* Enhanced CTA banner */
         .footer-cta {
             background: linear-gradient(135deg, #b30707 0%, #7a0404 100%);
             border-radius: 24px;
@@ -301,7 +377,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .footer-cta .btn-cta i {
             margin-right: 6px;
         }
-
         .btns {
             display: flex;
             justify-content: space-between;
@@ -337,7 +412,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .btn-next:hover {
             background: #8f0505;
         }
-
         @media (max-width: 700px) {
             .product-grid {
                 grid-template-columns: 1fr 1fr;
@@ -373,24 +447,42 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="rec-wrapper">
-                <!-- Header -->
+                <div class="progress-steps">
+                    <div class="step">
+                        <span class="circle">1</span>
+                        <span class="label">My Assets</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">2</span>
+                        <span class="label">Estate Planning Checklist</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">3</span>
+                        <span class="label">Estate Fund Need Analysis</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">4</span>
+                        <span class="label">Funding Gap</span>
+                    </div>
+                    <div class="step active">
+                        <span class="circle">5</span>
+                        <span class="label">Product Recommendations</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">6</span>
+                        <span class="label">Payment</span>
+                    </div>
+                </div>
                 <div class="header">
                     <h1><i class="fas fa-gem"></i> Product Recommendations</h1>
-                    <!-- 右侧仅保留客户信息 -->
                     <div class="client-info">
                         <span class="avatar">
-                            <?php 
-                                $initial = $clientId ? strtoupper(substr(trim($clientName), 0, 1)) : '?';
-                                echo $initial;
-                            ?>
+                            <?php echo strtoupper(substr(trim($clientName), 0, 1)); ?>
                         </span>
                         <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
                     </div>
                 </div>
-
-                <!-- Product cards -->
                 <div class="product-grid">
-                    <!-- 1 -->
                     <div class="product-card">
                         <div class="price">$1,200</div>
                         <h3>Comprehensive Last Will &amp; Testament</h3>
@@ -402,7 +494,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                         </ul>
                         <button class="btn btn-primary">Add to Planning Cart</button>
                     </div>
-                    <!-- 2 -->
                     <div class="product-card">
                         <div class="price">—</div>
                         <h3>LPA Form 1</h3>
@@ -414,7 +505,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                         </ul>
                         <button class="btn btn-primary">Add to Planning Cart</button>
                     </div>
-                    <!-- 3 -->
                     <div class="product-card">
                         <div class="price">Custom</div>
                         <h3>SmartCare Trust</h3>
@@ -426,7 +516,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                         </ul>
                         <button class="btn btn-outline">Inquire for Custom Quote</button>
                     </div>
-                    <!-- 4 -->
                     <div class="product-card">
                         <div class="price">Included</div>
                         <h3>AMD (Advanced)</h3>
@@ -439,8 +528,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                         <button class="btn btn-secondary">Include in Plan</button>
                     </div>
                 </div>
-
-                <!-- Enhanced CTA banner -->
                 <div class="footer-cta">
                     <div class="text">
                         <i class="fas fa-shield-alt"></i>
@@ -452,8 +539,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                     </div>
                     <button class="btn-cta"><i class="fas fa-phone-alt"></i> Get Free Consultation</button>
                 </div>
-
-                <!-- Navigation buttons -->
                 <div class="btns">
                     <a href="fundinggap.php?id=<?=$clientId?>" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back to Funding Gap</a>
                     <a href="payment.php?id=<?=$clientId?>" class="btn btn-next">Go to Payment <i class="fas fa-arrow-right"></i></a>

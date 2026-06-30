@@ -1,7 +1,7 @@
 <?php
 $activePage = 'clients';
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
+$clientName = 'Zhang Wei';
 $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
 ?>
 <!DOCTYPE html>
@@ -13,7 +13,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 固定侧边栏和顶栏，内容滚动 */
         html, body {
             height: 100%;
             margin: 0;
@@ -54,7 +53,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             overflow-y: auto;
             padding: 20px 20px 0;
         }
-
         .payment-wrapper {
             width: 100%;
             max-width: none;
@@ -70,7 +68,92 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
                 padding: 20px 18px;
             }
         }
-
+        .progress-steps {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 28px;
+            padding: 0 6px;
+        }
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e8ef;
+            z-index: 0;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .step .circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e0e8ef;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .step.active .circle {
+            background: #b30707;
+            box-shadow: 0 4px 10px rgba(179,7,7,0.25);
+        }
+        .step .label {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #7a93ab;
+            font-weight: 500;
+            line-height: 1.2;
+            max-width: 90px;
+            word-break: break-word;
+        }
+        .step.active .label {
+            color: #b30707;
+            font-weight: 700;
+        }
+        @media (max-width: 700px) {
+            .step .circle {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+            .step .label {
+                font-size: 0.6rem;
+                max-width: 60px;
+            }
+            .progress-steps::before {
+                top: 17px;
+            }
+        }
+        @media (max-width: 500px) {
+            .step .label {
+                font-size: 0.5rem;
+                max-width: 44px;
+            }
+            .step .circle {
+                width: 28px;
+                height: 28px;
+                font-size: 0.65rem;
+            }
+            .progress-steps::before {
+                top: 14px;
+            }
+        }
         .header {
             display: flex;
             justify-content: space-between;
@@ -97,7 +180,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             font-size: 1rem;
             color: #b30707;
         }
-
         .success-box {
             background: #e8f5e9;
             border-radius: 16px;
@@ -117,7 +199,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             color: #1a5a4a;
             font-size: 1.05rem;
         }
-
         .payment-summary {
             background: #f8fafd;
             border-radius: 16px;
@@ -147,7 +228,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             color: #b30707;
             font-size: 1.2rem;
         }
-
         .payment-methods {
             margin-bottom: 24px;
         }
@@ -184,7 +264,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             border-color: #b30707;
             background: #fef6f6;
         }
-
         .card-details {
             background: #f8fafd;
             border-radius: 16px;
@@ -222,7 +301,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             flex: 0.5;
             min-width: 100px;
         }
-
         .btns {
             display: flex;
             justify-content: space-between;
@@ -265,7 +343,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
         .btn-success:hover {
             background: #1f7a6b;
         }
-
         .secure-note {
             text-align: center;
             margin-top: 16px;
@@ -275,7 +352,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
         .secure-note i {
             margin-right: 6px;
         }
-
         @media (max-width: 700px) {
             .method-options {
                 flex-direction: column;
@@ -306,23 +382,44 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="payment-wrapper">
-                <!-- Header -->
+                <div class="progress-steps">
+                    <div class="step">
+                        <span class="circle">1</span>
+                        <span class="label">My Assets</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">2</span>
+                        <span class="label">Estate Planning Checklist</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">3</span>
+                        <span class="label">Estate Fund Need Analysis</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">4</span>
+                        <span class="label">Funding Gap</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">5</span>
+                        <span class="label">Product Recommendations</span>
+                    </div>
+                    <div class="step active">
+                        <span class="circle">6</span>
+                        <span class="label">Payment</span>
+                    </div>
+                </div>
                 <div class="header">
                     <h1><i class="fas fa-credit-card"></i> Payment</h1>
                     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
                         <span class="total-badge"><i class="fas fa-tag"></i> $1,200</span>
                     </div>
                 </div>
-
-                <!-- Payment success message -->
                 <?php if ($paymentSuccess): ?>
                 <div class="success-box">
                     <i class="fas fa-check-circle"></i>
                     <div class="msg">Payment successful! Your estate plan has been confirmed.</div>
                 </div>
                 <?php endif; ?>
-
-                <!-- Payment summary -->
                 <div class="payment-summary">
                     <div class="row"><span class="lbl">Comprehensive Last Will &amp; Testament</span><span class="val">$1,200</span></div>
                     <div class="row"><span class="lbl">LPA Form 1</span><span class="val">$0</span></div>
@@ -330,8 +427,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
                     <div class="row"><span class="lbl">AMD (Advanced)</span><span class="val">Included</span></div>
                     <div class="row total"><span class="lbl">Total Amount</span><span class="val">$1,200</span></div>
                 </div>
-
-                <!-- Payment methods (disabled after success) -->
                 <div class="payment-methods">
                     <span class="label">Select Payment Method</span>
                     <div class="method-options" <?= $paymentSuccess ? 'style="opacity:0.5;pointer-events:none;"' : '' ?>>
@@ -349,8 +444,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
                         </label>
                     </div>
                 </div>
-
-                <!-- Card details (disabled after success) -->
                 <div class="card-details" id="cardDetails" <?= $paymentSuccess ? 'style="opacity:0.5;pointer-events:none;"' : '' ?>>
                     <div class="row">
                         <label>Card Number</label>
@@ -367,24 +460,18 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
                         <input type="text" placeholder="123" style="flex:0.3;min-width:70px;">
                     </div>
                 </div>
-
-                <!-- Navigation buttons -->
                 <div class="btns">
                     <a href="recommendations.php?id=<?=$clientId?>" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back to Recommendations</a>
-                    
                     <?php if ($paymentSuccess): ?>
-                        <!-- 修正：使用正确的相对路径返回客户列表 -->
                         <a href="../clients.php" class="btn btn-success">
                             <i class="fas fa-check"></i> Back to Clients
                         </a>
                     <?php else: ?>
-                        <!-- Pay button -->
                         <a href="payment.php?id=<?=$clientId?>&status=success" class="btn btn-pay">
                             <i class="fas fa-lock"></i> Pay $1,200
                         </a>
                     <?php endif; ?>
                 </div>
-
                 <div class="secure-note">
                     <i class="fas fa-lock"></i> Your payment is secure and encrypted.
                 </div>
@@ -392,7 +479,6 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
         </div>
     </div>
 </div>
-
 <script>
 function selectMethod(el) {
     document.querySelectorAll('.method-options label').forEach(l => l.classList.remove('active'));

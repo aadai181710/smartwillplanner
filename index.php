@@ -99,7 +99,6 @@
         .module-card.recent-cases {
             grid-column: 1 / -1;
         }
-        /* Optional: Add a table placeholder style to Recent Cases to keep it simple.*/
         .module-card.recent-cases .placeholder-table {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -112,7 +111,6 @@
             font-weight: 600;
             color: #1e466e;
         }
-        /* ===== Added end ===== */
 
         footer {
             margin-top: 20px;
@@ -123,14 +121,114 @@
             color: #7c9ab3;
         }
 
-        @media(max-width:850px){
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .modules-grid { grid-template-columns: 1fr; }
-            .module-card.recent-cases { grid-column: 1; }
+        /* ----- 自适应规则（电脑 → 平板 → 手机） ----- */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            .module-card.recent-cases {
+                grid-column: 1;
+            }
         }
-        @media(max-width:480px){
-            .stats-grid { grid-template-columns: 1fr; }
-            .hero-banner { padding: 20px; }
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 20px;
+            }
+            .hero-banner h1 {
+                font-size: 1.3rem;
+            }
+            .hero-banner p {
+                font-size: .9rem;
+            }
+            .hero-banner .date-badge {
+                font-size: .7rem;
+                padding: 2px 12px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .stat-card {
+                padding: 14px 16px;
+            }
+            .stat-card .stat-number {
+                font-size: 1.2rem;
+            }
+            .stat-card .stat-label {
+                font-size: .7rem;
+            }
+            .modules-grid {
+                gap: 12px;
+            }
+            .module-card {
+                padding: 16px 18px;
+            }
+            .module-card h3 {
+                font-size: .95rem;
+            }
+            .module-card p {
+                font-size: .75rem;
+            }
+            .module-card.recent-cases .placeholder-table {
+                grid-template-columns: 1fr 1fr;
+                font-size: .7rem;
+                gap: 4px 12px;
+            }
+            .module-card.recent-cases .placeholder-table .header {
+                grid-column: span 2;
+            }
+            .module-card.recent-cases .placeholder-table span {
+                padding: 2px 0;
+                border-bottom: 1px solid #f0f4fa;
+            }
+            .module-card.recent-cases .placeholder-table span:nth-child(n+5) {
+                border-bottom: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero-banner {
+                padding: 16px;
+                border-radius: 16px;
+            }
+            .hero-banner h1 {
+                font-size: 1.1rem;
+            }
+            .stat-card {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+            .stat-card .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .stat-card .stat-number {
+                font-size: 1rem;
+            }
+            .module-card {
+                padding: 14px 16px;
+            }
+            .module-card h3 {
+                font-size: .9rem;
+            }
+            .module-card.recent-cases .placeholder-table {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+            .module-card.recent-cases .placeholder-table .header {
+                grid-column: 1;
+                margin-top: 6px;
+            }
+            .module-card.recent-cases .placeholder-table span {
+                padding: 2px 0;
+                border-bottom: 1px solid #f0f4fa;
+            }
+            .module-card.recent-cases .placeholder-table span:last-child {
+                border-bottom: none;
+            }
         }
     </style>
 </head>
@@ -140,7 +238,6 @@
     <div class="main-content">
         <?php include 'layouts/topbar.php'; ?>
         <div class="content">
-            <!-- Hero Banner -->
             <div class="hero-banner">
                 <h5>DASHBOARD</h5>
                 <h1>Welcome back, Sarah 👋</h1>
@@ -148,7 +245,6 @@
                 <div class="date-badge"><i class="far fa-calendar-alt"></i> <span id="realTimeDate">----Year--Month--Day</span></div>
             </div>
 
-            <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon blue"><i class="fas fa-briefcase"></i></div>
@@ -168,23 +264,18 @@
                 </div>
             </div>
 
-            <!-- ===== Added three modules ===== -->
             <div class="modules-grid">
-                <!-- Announcement & Update -->
                 <div class="module-card">
                     <h3>Announcement &amp; Update</h3>
                     <p>No new announcements</p>
                 </div>
-                <!-- Upcoming Events & Training -->
                 <div class="module-card">
                     <h3>Upcoming Events &amp; Training</h3>
                     <p>No upcoming events</p>
                 </div>
-                <!-- Recent Cases (Fill the entire line) -->
                 <div class="module-card recent-cases">
                     <h3>Recent Cases</h3>
                     <p>No recent cases</p>
-                    <!-- Optional: Use a placeholder table to enhance visual hierarchy,呼应统计卡片 -->
                     <div class="placeholder-table">
                         <span class="header">Client</span>
                         <span class="header">Product</span>
@@ -195,7 +286,6 @@
                     </div>
                 </div>
             </div>
-            <!-- ===== Added end ===== -->
 
             <footer>© 2026 smartwillsplanner.com</footer>
         </div>
@@ -203,12 +293,10 @@
 </div>
 
 <script>
-    // Update date to English format
     function updateRealDate() {
         const el = document.getElementById('realTimeDate');
         if (el) {
             const d = new Date();
-            // Format: June 19, 2026
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             el.innerText = d.toLocaleDateString('en-US', options);
         }
@@ -216,7 +304,6 @@
     updateRealDate();
     setInterval(updateRealDate, 3600000);
 
-    // Sidebar navigation
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
@@ -238,7 +325,6 @@
         });
     });
 
-    // Sidebar footer buttons
     document.querySelectorAll('.action-side-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -249,6 +335,5 @@
         });
     });
 </script>
-
 </body>
 </html>

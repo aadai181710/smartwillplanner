@@ -1,7 +1,7 @@
 <?php
 $activePage = 'clients';
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
+$clientName = 'Zhang Wei';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 固定侧边栏和顶栏，内容滚动 */
         html, body {
             height: 100%;
             margin: 0;
@@ -53,7 +52,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             overflow-y: auto;
             padding: 20px 20px 0;
         }
-
         .review-wrapper {
             width: 100%;
             max-width: none;
@@ -69,7 +67,92 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 padding: 20px 18px;
             }
         }
-
+        .progress-steps {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 28px;
+            padding: 0 6px;
+        }
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e8ef;
+            z-index: 0;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .step .circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e0e8ef;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .step.active .circle {
+            background: #b30707;
+            box-shadow: 0 4px 10px rgba(179,7,7,0.25);
+        }
+        .step .label {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #7a93ab;
+            font-weight: 500;
+            line-height: 1.2;
+            max-width: 90px;
+            word-break: break-word;
+        }
+        .step.active .label {
+            color: #b30707;
+            font-weight: 700;
+        }
+        @media (max-width: 700px) {
+            .step .circle {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+            .step .label {
+                font-size: 0.6rem;
+                max-width: 60px;
+            }
+            .progress-steps::before {
+                top: 17px;
+            }
+        }
+        @media (max-width: 500px) {
+            .step .label {
+                font-size: 0.5rem;
+                max-width: 44px;
+            }
+            .step .circle {
+                width: 28px;
+                height: 28px;
+                font-size: 0.65rem;
+            }
+            .progress-steps::before {
+                top: 14px;
+            }
+        }
         .header {
             display: flex;
             align-items: center;
@@ -90,8 +173,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .header h1 i {
             color: #b30707;
         }
-
-        /* 客户信息样式 */
         .header .client-info {
             display: flex;
             align-items: center;
@@ -126,8 +207,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                 font-size: 0.9rem;
             }
         }
-
-        /* ---------- 折叠卡片样式 ---------- */
         .accordion-section {
             margin-bottom: 16px;
             border-radius: 16px;
@@ -187,8 +266,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             0% { opacity: 0; transform: translateY(-6px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        /* 原有样式保持兼容 */
         .section-intro {
             font-size: .95rem;
             color: #2c4a66;
@@ -218,8 +295,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             padding: 0 12px;
             border-radius: 30px;
         }
-
-        /* Part B: 6-column grid */
         .b-row {
             display: grid;
             grid-template-columns: 150px 1fr 70px 70px 50px 1fr;
@@ -263,8 +338,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .b-row .span2 {
             grid-column: span 2;
         }
-
-        /* Part C: 3-column grid */
         .c-row {
             display: grid;
             grid-template-columns: 150px 1fr 120px;
@@ -300,8 +373,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             justify-self: end;
             min-width: 80px;
         }
-
-        /* Part A: 3-column grid */
         .a-row {
             display: grid;
             grid-template-columns: 150px 1fr 120px;
@@ -337,7 +408,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             justify-self: end;
             min-width: 80px;
         }
-
         .desc-text {
             font-size: .85rem;
             color: #4a6f8a;
@@ -371,7 +441,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             min-width: 120px;
             text-align: center;
         }
-
         .grand-total {
             background: #f0f6fe;
             border-radius: 20px;
@@ -395,7 +464,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             padding: 4px 30px;
             border-radius: 40px;
         }
-
         .btn-row {
             display: flex;
             justify-content: space-between;
@@ -432,7 +500,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         .btn-next:hover {
             background: #8f0505;
         }
-
         @media (max-width: 700px) {
             .b-row {
                 grid-template-columns: 1fr;
@@ -491,27 +558,46 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="review-wrapper">
+                <div class="progress-steps">
+                    <div class="step">
+                        <span class="circle">1</span>
+                        <span class="label">My Assets</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">2</span>
+                        <span class="label">Estate Planning Checklist</span>
+                    </div>
+                    <div class="step active">
+                        <span class="circle">3</span>
+                        <span class="label">Estate Fund Need Analysis</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">4</span>
+                        <span class="label">Funding Gap</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">5</span>
+                        <span class="label">Product Recommendations</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">6</span>
+                        <span class="label">Payment</span>
+                    </div>
+                </div>
                 <div class="header">
                     <h1><i class="fas fa-calculator"></i> Estate Fund Need Analysis</h1>
                     <div class="client-info">
                         <span class="avatar">
-                            <?php 
-                                $initial = $clientId ? strtoupper(substr(trim($clientName), 0, 1)) : '?';
-                                echo $initial;
-                            ?>
+                            <?php echo strtoupper(substr(trim($clientName), 0, 1)); ?>
                         </span>
                         <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
                     </div>
                 </div>
-
                 <div class="section-intro">
                     <i class="fas fa-info-circle" style="color:#b30707;margin-right:8px;"></i> This section allows you to determine the amount of funding needed for your estate plan when you pass on.
                 </div>
-
                 <form method="POST" action="fundinggap.php">
                     <input type="hidden" name="client_id" value="<?=$clientId?>">
-
-                    <!-- ===== 卡片 A：Estate Administration Fee ===== -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-file-invoice-dollar"></i> A. Estate Administration Fee <span class="badge">5%</span></span>
@@ -533,8 +619,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                             </div>
                         </div>
                     </div>
-
-                    <!-- ===== 卡片 B：Family Living Expenses ===== -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-home"></i> B. Family Living Expenses</span>
@@ -574,8 +658,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                             </div>
                         </div>
                     </div>
-
-                    <!-- ===== 卡片 C：Personal Debts ===== -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-credit-card"></i> C. Personal Debts</span>
@@ -604,15 +686,11 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                             </div>
                         </div>
                     </div>
-
-                    <!-- ===== Grand Total（始终可见） ===== -->
                     <div class="grand-total">
                         <span class="label">The Total Amount of Estate Funds Needed (A+B+C)</span>
                         <span class="amt" id="grandTotalDisplay">$ 3,480,000</span>
                         <input type="hidden" name="grand_total" id="grandTotalHidden" value="3480000">
                     </div>
-
-                    <!-- Buttons -->
                     <div class="btn-row">
                         <a href="epchecklist.php?id=<?=$clientId?>" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back to Checklist</a>
                         <button type="submit" class="btn btn-next">Go to Funding Gap <i class="fas fa-arrow-right"></i></button>
@@ -622,13 +700,11 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         </div>
     </div>
 </div>
-
 <script>
 function toggleAccordion(header) {
     const body = header.nextElementSibling;
     const arrow = header.querySelector('.arrow');
     const isOpen = body.classList.contains('open');
-    
     if (isOpen) {
         body.classList.remove('open');
         arrow.classList.remove('open');
@@ -637,9 +713,7 @@ function toggleAccordion(header) {
         arrow.classList.add('open');
     }
 }
-
 function calc(){
-    // A
     let asset = parseFloat(document.getElementById('assetValue').value) || 0;
     let admin = asset * 0.05;
     document.getElementById('adminFeeDisplay').textContent = '$ ' + admin.toLocaleString();
@@ -647,8 +721,6 @@ function calc(){
     document.getElementById('adminFeeHidden').value = admin;
     document.getElementById('adminFeeFormula').textContent = 
         'Estate Administration Fee (A): ' + asset.toLocaleString() + ' × 5% = ' + admin.toLocaleString();
-
-    // B
     const bIds = ['living','parent','guardian','edu','medical','emergency'];
     let familyTotal = 0;
     bIds.forEach(id => {
@@ -660,8 +732,6 @@ function calc(){
     });
     document.getElementById('familyTotalDisplay').textContent = '$ ' + familyTotal.toLocaleString();
     document.getElementById('familyTotalHidden').value = familyTotal;
-
-    // C
     const cIds = ['debt_loan','debt_car','debt_housing','debt_others'];
     let debtTotal = 0;
     cIds.forEach(id => {
@@ -671,8 +741,6 @@ function calc(){
     });
     document.getElementById('debtTotalDisplay').textContent = '$ ' + debtTotal.toLocaleString();
     document.getElementById('debtTotalHidden').value = debtTotal;
-
-    // Grand
     let grand = admin + familyTotal + debtTotal;
     document.getElementById('grandTotalDisplay').textContent = '$ ' + grand.toLocaleString();
     document.getElementById('grandTotalHidden').value = grand;

@@ -149,14 +149,39 @@
             background: #1a5f8a;
         }
 
-        @media(max-width:850px) {
+        /* 响应式 */
+        @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .report-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media(max-width:480px) {
-            .stats-grid { grid-template-columns: 1fr; }
-            .report-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
             .page-header { flex-direction: column; align-items: flex-start; }
+            .page-header h1 { font-size: 1.3rem; }
+            .date-range { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
+            .date-range select { flex: 1; min-width: 120px; }
+            .stats-grid { gap: 12px; }
+            .stat-card { padding: 14px 16px; gap: 10px; }
+            .stat-card .stat-icon { width: 36px; height: 36px; font-size: 1.1rem; }
+            .stat-card .stat-number { font-size: 1.2rem; }
+            .stat-card .stat-label { font-size: .7rem; }
+            .report-grid { gap: 16px; }
+            .report-card { padding: 20px 16px; }
+            .report-card .icon-wrap { width: 44px; height: 44px; font-size: 1.3rem; }
+            .report-card h4 { font-size: 1rem; }
+            .report-card p { font-size: .8rem; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; gap: 10px; }
+            .stat-card { padding: 12px 14px; }
+            .stat-card .stat-icon { width: 32px; height: 32px; font-size: 1rem; }
+            .stat-card .stat-number { font-size: 1rem; }
+            .report-grid { grid-template-columns: 1fr; gap: 14px; }
+            .report-card { padding: 16px 14px; }
+            .report-card .icon-wrap { width: 40px; height: 40px; font-size: 1.1rem; }
+            .report-card h4 { font-size: .95rem; }
+            .report-card p { font-size: .75rem; }
+            .btn-outline, .btn-primary { padding: 4px 14px; font-size: .8rem; }
+            .date-range select { font-size: .8rem; padding: 4px 12px; }
         }
     </style>
 </head>
@@ -180,7 +205,6 @@
                 </div>
             </div>
 
-            <!-- Statistical cards -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon green"><i class="fas fa-dollar-sign"></i></div>
@@ -212,7 +236,6 @@
                 </div>
             </div>
 
-            <!-- Report cards -->
             <div class="report-grid">
                 <div class="report-card" data-report="commission">
                     <div class="icon-wrap green"><i class="fas fa-file-invoice-dollar"></i></div>

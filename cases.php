@@ -69,9 +69,155 @@
         .modal-btns .btn-save{background:#b30707;color:#fff}
         .modal-btns .btn-save:hover{background:#8f0505}
 
-        @media(max-width:850px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
-        @media(max-width:700px){.frow{flex-direction:column;align-items:stretch}.frow label{width:auto}.frow input{width:100%}}
-        @media(max-width:480px){.stats-grid{grid-template-columns:1fr 1fr}}
+        /* ====== 增强响应式规则 ====== */
+        /* 平板 (≤1024px) */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .stat-card {
+                padding: 14px 16px;
+            }
+            .stat-card .stat-number {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* 手机 (≤768px) */
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+            .btn-primary {
+                align-self: flex-start;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .stat-card {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+            .stat-card .stat-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+            .stat-card .stat-number {
+                font-size: 1.1rem;
+            }
+            .stat-card .stat-label {
+                font-size: .7rem;
+            }
+            .toolbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .toolbar .search-box {
+                min-width: auto;
+                width: 100%;
+            }
+            .toolbar .filter-group {
+                width: 100%;
+            }
+            .toolbar .filter-group select {
+                flex: 1;
+            }
+            .table-scroll {
+                padding: 0 12px 4px;
+            }
+            .case-table {
+                font-size: .75rem;
+            }
+            .case-table th,
+            .case-table td {
+                padding: 10px 6px;
+            }
+            .case-table .client-name .avatar {
+                width: 24px;
+                height: 24px;
+                font-size: .6rem;
+            }
+            .action-cell {
+                gap: 4px;
+            }
+            .btn-sm {
+                padding: 3px 8px;
+                font-size: .65rem;
+            }
+            .modal-box {
+                padding: 20px 18px;
+            }
+            .frow {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .frow label {
+                width: auto;
+            }
+            .frow input,
+            .frow select {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+        /* 小手机 (≤480px) */
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.1rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+            .stat-card .stat-icon {
+                width: 30px;
+                height: 30px;
+                font-size: .9rem;
+                border-radius: 8px;
+            }
+            .stat-card .stat-number {
+                font-size: 1rem;
+            }
+            .stat-card .stat-label {
+                font-size: .65rem;
+            }
+            .case-table {
+                font-size: .7rem;
+            }
+            .case-table th,
+            .case-table td {
+                padding: 6px 4px;
+            }
+            .btn-sm {
+                padding: 2px 6px;
+                font-size: .6rem;
+            }
+            .modal-head h2 {
+                font-size: 1.2rem;
+            }
+            .modal-btns .btn {
+                padding: 6px 18px;
+                font-size: .8rem;
+            }
+            .fsection {
+                padding: 12px 14px;
+            }
+            .modal-box {
+                padding: 16px 14px;
+            }
+        }
     </style>
 </head>
 <body>

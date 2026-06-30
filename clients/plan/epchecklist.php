@@ -2,7 +2,7 @@
 $activePage = 'clients';
 // Get client ID from URL parameter
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
+$clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +55,7 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             padding: 20px 20px 0;
         }
 
-        /* Checklist 铺满宽度（去除居中限制） */
+        /* Checklist 铺满宽度 */
         .checklist-wrapper {
             width: 100%;
             max-width: none;
@@ -72,6 +72,95 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             }
         }
 
+        /* ---------- 进度条样式（与第一页一致） ---------- */
+        .progress-steps {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 28px;
+            padding: 0 6px;
+        }
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 22px;  /* 圆点中心 */
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e8ef;
+            z-index: 0;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .step .circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e0e8ef;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .step.active .circle {
+            background: #b30707;
+            box-shadow: 0 4px 10px rgba(179,7,7,0.25);
+        }
+        .step .label {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #7a93ab;
+            font-weight: 500;
+            line-height: 1.2;
+            max-width: 90px;
+            word-break: break-word;
+        }
+        .step.active .label {
+            color: #b30707;
+            font-weight: 700;
+        }
+        @media (max-width: 700px) {
+            .step .circle {
+                width: 34px;
+                height: 34px;
+                font-size: 0.8rem;
+            }
+            .step .label {
+                font-size: 0.6rem;
+                max-width: 60px;
+            }
+            .progress-steps::before {
+                top: 17px;
+            }
+        }
+        @media (max-width: 500px) {
+            .step .label {
+                font-size: 0.5rem;
+                max-width: 44px;
+            }
+            .step .circle {
+                width: 28px;
+                height: 28px;
+                font-size: 0.65rem;
+            }
+            .progress-steps::before {
+                top: 14px;
+            }
+        }
+
+        /* 原有样式 */
         .header {
             display: flex;
             align-items: center;
@@ -93,7 +182,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
             color: #b30707;
         }
 
-        /* 客户信息样式 - 无背景框，仅头像+文字 */
         .header .client-info {
             display: flex;
             align-items: center;
@@ -269,14 +357,41 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="checklist-wrapper">
+                <!-- ========== 进度条（第二步高亮） ========== -->
+                <div class="progress-steps">
+                    <div class="step">
+                        <span class="circle">1</span>
+                        <span class="label">My Assets</span>
+                    </div>
+                    <div class="step active">
+                        <span class="circle">2</span>
+                        <span class="label">Estate Planning Checklist</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">3</span>
+                        <span class="label">Estate Fund Need Analysis</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">4</span>
+                        <span class="label">Funding Gap</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">5</span>
+                        <span class="label">Product Recommendations</span>
+                    </div>
+                    <div class="step">
+                        <span class="circle">6</span>
+                        <span class="label">Payment</span>
+                    </div>
+                </div>
+
                 <div class="header">
                     <h1><i class="fas fa-clipboard-list"></i> Estate Planning Checklist</h1>
-                    <!-- 客户信息区域（无背景框） -->
                     <div class="client-info">
                         <span class="avatar">
                             <?php 
-                                $initial = $clientId ? strtoupper(substr(trim($clientName), 0, 1)) : '?';
-                                echo $initial;
+                                // 固定取 Zhang Wei 的首字母 Z
+                                echo strtoupper(substr(trim($clientName), 0, 1));
                             ?>
                         </span>
                         <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
@@ -428,7 +543,6 @@ $clientName = $clientId ? 'Client #' . $clientId : 'Unspecified Client';
                     </div>
 
                     <div class="btn-row">
-                        <!-- 修改：按钮文字改为 "Back to My Assets"，跳转到 myassets.php 并携带客户 ID -->
                         <button type="button" class="btn btn-back" onclick="window.location.href='myassets.php?id=<?php echo $clientId; ?>';">
                             <i class="fas fa-arrow-left"></i> Back to My Assets
                         </button>
