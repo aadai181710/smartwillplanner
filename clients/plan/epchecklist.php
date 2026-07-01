@@ -1,78 +1,35 @@
 <?php
 $activePage = 'clients';
-// Get client ID from URL parameter
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
+$clientName = 'Zhang Wei';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Estate Planning Checklist · SmartWills</title>
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 固定侧边栏和顶栏，内容滚动 */
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        .wrapper {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 250px;
-            overflow-y: auto;
-            z-index: 1000;
-            background: #fff;
-            border-right: 1px solid #eef2f8;
-        }
-        .main-content {
-            margin-left: 250px;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-            flex: 1;
-        }
-        .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background: #fff;
-            border-bottom: 1px solid #eef2f8;
-        }
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 20px 0;
-        }
+        /* ----- 基础布局 ----- */
+        html, body { height: 100%; margin: 0; }
+        .wrapper { display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 250px; overflow-y: auto; z-index: 1000; background: #fff; border-right: 1px solid #eef2f8; }
+        .main-content { margin-left: 250px; display: flex; flex-direction: column; height: 100vh; overflow: hidden; flex: 1; }
+        .topbar { position: sticky; top: 0; z-index: 999; background: #fff; border-bottom: 1px solid #eef2f8; }
+        .content { flex: 1; overflow-y: auto; padding: 20px 20px 0; }
 
-        /* Checklist 铺满宽度 */
         .checklist-wrapper {
             width: 100%;
-            max-width: none;
-            margin: 0;
-            background: #ffffff;
+            background: #fff;
             border-radius: 32px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.08);
             padding: 24px 30px 30px;
             transition: 0.2s;
         }
-        @media (max-width: 600px) {
-            .checklist-wrapper {
-                padding: 20px 18px;
-            }
-        }
 
-        /* ---------- 进度条样式（与第一页一致） ---------- */
+        /* 进度条 */
         .progress-steps {
             display: flex;
             align-items: flex-start;
@@ -84,7 +41,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
         .progress-steps::before {
             content: '';
             position: absolute;
-            top: 22px;  /* 圆点中心 */
+            top: 22px;
             left: 0;
             right: 0;
             height: 2px;
@@ -114,10 +71,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             transition: background 0.2s;
             flex-shrink: 0;
         }
-        .step.active .circle {
-            background: #b30707;
-            box-shadow: 0 4px 10px rgba(179,7,7,0.25);
-        }
+        .step.active .circle { background: #b30707; box-shadow: 0 4px 10px rgba(179,7,7,0.25); }
         .step .label {
             margin-top: 8px;
             font-size: 0.75rem;
@@ -127,40 +81,9 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             max-width: 90px;
             word-break: break-word;
         }
-        .step.active .label {
-            color: #b30707;
-            font-weight: 700;
-        }
-        @media (max-width: 700px) {
-            .step .circle {
-                width: 34px;
-                height: 34px;
-                font-size: 0.8rem;
-            }
-            .step .label {
-                font-size: 0.6rem;
-                max-width: 60px;
-            }
-            .progress-steps::before {
-                top: 17px;
-            }
-        }
-        @media (max-width: 500px) {
-            .step .label {
-                font-size: 0.5rem;
-                max-width: 44px;
-            }
-            .step .circle {
-                width: 28px;
-                height: 28px;
-                font-size: 0.65rem;
-            }
-            .progress-steps::before {
-                top: 14px;
-            }
-        }
+        .step.active .label { color: #b30707; font-weight: 700; }
 
-        /* 原有样式 */
+        /* 头部 */
         .header {
             display: flex;
             align-items: center;
@@ -178,10 +101,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             align-items: center;
             gap: 10px;
         }
-        .header h1 i {
-            color: #b30707;
-        }
-
+        .header h1 i { color: #b30707; }
         .header .client-info {
             display: flex;
             align-items: center;
@@ -206,25 +126,14 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             color: #1e466e;
             font-size: 1.05rem;
         }
-        @media (max-width: 600px) {
-            .header .client-info .avatar {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
-            }
-            .header .client-info .client-name-text {
-                font-size: 0.9rem;
-            }
-        }
 
+        /* 问题区域 */
         .question-group {
             margin-bottom: 28px;
             border-bottom: 1px dashed #e6edf4;
             padding-bottom: 22px;
         }
-        .question-group:last-of-type {
-            border-bottom: none;
-        }
+        .question-group:last-of-type { border-bottom: none; }
         .question-text {
             font-weight: 600;
             color: #0f3b5c;
@@ -270,16 +179,9 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             padding-left: 18px;
             border-left: 3px solid #d0e3f5;
         }
-        .sub-question .question-text {
-            font-weight: 500;
-            color: #1e466e;
-        }
-        .sub-question .options-group {
-            gap: 16px;
-        }
-        .text-input {
-            margin-top: 10px;
-        }
+        .sub-question .question-text { font-weight: 500; color: #1e466e; }
+        .sub-question .options-group { gap: 16px; }
+        .text-input { margin-top: 10px; }
         .text-input input[type="text"],
         .text-input input[type="number"] {
             padding: 8px 16px;
@@ -300,6 +202,8 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             font-size: 0.8rem;
             margin-left: 12px;
         }
+
+        /* 按钮 */
         .btn-row {
             display: flex;
             justify-content: space-between;
@@ -322,31 +226,70 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
             font-size: 1rem;
             transition: background 0.15s;
         }
-        .btn-back {
-            background: #eef2f8;
-            color: #2c4a66;
+        .btn-back { background: #eef2f8; color: #2c4a66; }
+        .btn-back:hover { background: #dce4ed; }
+        .btn-next { background: #b30707; color: #fff; }
+        .btn-next:hover { background: #8f0505; }
+
+        /* ----- 响应式 ----- */
+        @media (max-width: 1024px) {
+            .checklist-wrapper { padding: 20px 24px 24px; }
+            .step .circle { width: 38px; height: 38px; font-size: 0.85rem; }
+            .step .label { font-size: 0.65rem; max-width: 72px; }
+            .progress-steps::before { top: 19px; }
+            .header h1 { font-size: 1.3rem; }
         }
-        .btn-back:hover {
-            background: #dce4ed;
+
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .main-content { margin-left: 200px; }
+            .checklist-wrapper { padding: 16px 18px 20px; border-radius: 24px; }
+            .progress-steps { margin-bottom: 20px; padding: 0; flex-wrap: nowrap; overflow-x: auto; gap: 4px; }
+            .progress-steps::before { top: 16px; left: 10px; right: 10px; }
+            .step { flex: 0 0 auto; min-width: 50px; }
+            .step .circle { width: 32px; height: 32px; font-size: 0.7rem; }
+            .step .label { font-size: 0.55rem; max-width: 52px; margin-top: 4px; }
+            .header { flex-direction: column; align-items: flex-start; gap: 10px; padding-bottom: 12px; margin-bottom: 18px; }
+            .header h1 { font-size: 1.2rem; }
+            .header .client-info .avatar { width: 36px; height: 36px; font-size: 0.9rem; }
+            .header .client-info .client-name-text { font-size: 0.95rem; }
+            .question-group { margin-bottom: 20px; padding-bottom: 16px; }
+            .question-text { font-size: 0.95rem; }
+            .options-group { gap: 16px; }
+            .options-group label { font-size: 0.9rem; }
+            .sub-question { margin-left: 12px; padding-left: 12px; }
+            .text-input input { max-width: 100%; }
+            .btn-row { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 24px; padding-top: 20px; }
+            .btn { justify-content: center; padding: 10px 20px; font-size: 0.9rem; }
         }
-        .btn-next {
-            background: #b30707;
-            color: #fff;
-        }
-        .btn-next:hover {
-            background: #8f0505;
-        }
+
         @media (max-width: 480px) {
-            .btn-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn {
-                justify-content: center;
-            }
-            .text-input input {
-                max-width: 100%;
-            }
+            .sidebar { width: 170px; }
+            .main-content { margin-left: 170px; }
+            .content { padding: 12px 10px 0; }
+            .checklist-wrapper { padding: 12px 14px 16px; border-radius: 20px; }
+            .progress-steps { margin-bottom: 16px; }
+            .step .circle { width: 26px; height: 26px; font-size: 0.6rem; }
+            .step .label { font-size: 0.45rem; max-width: 40px; }
+            .progress-steps::before { top: 13px; }
+            .header h1 { font-size: 1rem; gap: 6px; }
+            .header .client-info .avatar { width: 30px; height: 30px; font-size: 0.75rem; }
+            .header .client-info .client-name-text { font-size: 0.85rem; }
+            .question-text { font-size: 0.9rem; }
+            .options-group { gap: 12px; }
+            .options-group label { font-size: 0.85rem; }
+            .options-group input[type="radio"] { width: 16px; height: 16px; }
+            .sub-question { margin-left: 8px; padding-left: 8px; }
+            .text-input input { font-size: 0.85rem; padding: 6px 12px; }
+            .btn { padding: 8px 16px; font-size: 0.8rem; gap: 6px; }
+            .btn-row { gap: 10px; margin-top: 20px; padding-top: 16px; }
+        }
+
+        @media (max-width: 400px) {
+            .sidebar { width: 140px; }
+            .main-content { margin-left: 140px; }
+            .content { padding: 8px 6px 0; }
+            .checklist-wrapper { padding: 10px 10px 14px; border-radius: 16px; }
         }
     </style>
 </head>
@@ -357,43 +300,20 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="checklist-wrapper">
-                <!-- ========== 进度条（第二步高亮） ========== -->
+                <!-- 进度条 -->
                 <div class="progress-steps">
-                    <div class="step">
-                        <span class="circle">1</span>
-                        <span class="label">My Assets</span>
-                    </div>
-                    <div class="step active">
-                        <span class="circle">2</span>
-                        <span class="label">Estate Planning Checklist</span>
-                    </div>
-                    <div class="step">
-                        <span class="circle">3</span>
-                        <span class="label">Estate Fund Need Analysis</span>
-                    </div>
-                    <div class="step">
-                        <span class="circle">4</span>
-                        <span class="label">Funding Gap</span>
-                    </div>
-                    <div class="step">
-                        <span class="circle">5</span>
-                        <span class="label">Product Recommendations</span>
-                    </div>
-                    <div class="step">
-                        <span class="circle">6</span>
-                        <span class="label">Payment</span>
-                    </div>
+                    <div class="step"><span class="circle">1</span><span class="label">My Assets</span></div>
+                    <div class="step active"><span class="circle">2</span><span class="label">Estate Planning Checklist</span></div>
+                    <div class="step"><span class="circle">3</span><span class="label">Estate Fund Need Analysis</span></div>
+                    <div class="step"><span class="circle">4</span><span class="label">Funding Gap</span></div>
+                    <div class="step"><span class="circle">5</span><span class="label">Product Recommendations</span></div>
+                    <div class="step"><span class="circle">6</span><span class="label">Payment</span></div>
                 </div>
 
                 <div class="header">
                     <h1><i class="fas fa-clipboard-list"></i> Estate Planning Checklist</h1>
                     <div class="client-info">
-                        <span class="avatar">
-                            <?php 
-                                // 固定取 Zhang Wei 的首字母 Z
-                                echo strtoupper(substr(trim($clientName), 0, 1));
-                            ?>
-                        </span>
+                        <span class="avatar"><?php echo strtoupper(substr(trim($clientName), 0, 1)); ?></span>
                         <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
                     </div>
                 </div>
@@ -401,6 +321,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                 <form id="checklistForm" method="POST" action="reviewresources.php">
                     <input type="hidden" name="client_id" value="<?php echo $clientId; ?>">
 
+                    <!-- 问题 1 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">1</span> Have you created an estate plan to ensure your assets are distributed according to your wishes and benefit your loved ones?</div>
                         <div class="options-group">
@@ -409,6 +330,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         </div>
                     </div>
 
+                    <!-- 问题 2 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">2</span> Do you know that your assets might be frozen whether or not you have a Will?</div>
                         <div class="options-group">
@@ -417,13 +339,13 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         </div>
                     </div>
 
+                    <!-- 问题 3 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">3</span> Have you written a Will as part of your estate planning?</div>
                         <div class="options-group">
                             <label><input type="radio" name="q3" value="Yes" class="q3_radio"> Yes</label>
                             <label><input type="radio" name="q3" value="No" class="q3_radio"> No</label>
                         </div>
-
                         <div id="q3_yes_sub" style="display:none;">
                             <div class="sub-question">
                                 <div class="question-text"><span class="qnum">3.1</span> Whom have you appointed as the executor in your Will?</div>
@@ -452,7 +374,6 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                                 </div>
                             </div>
                         </div>
-
                         <div id="q3_no_sub" style="display:none;">
                             <div class="sub-question">
                                 <div class="question-text"><span class="qnum">3.1</span> Are you aware that if you don’t have a Will, all legal beneficiaries (such as parents, spouses, and children) must reach a consensus to appoint a single representative, known as an administrator, to execute your estate?</div>
@@ -471,6 +392,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         </div>
                     </div>
 
+                    <!-- 问题 4 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">4</span> Are you aware that your executor or administrator will need to settle all outstanding debts and taxes before they can distribute the estate to your beneficiaries?</div>
                         <div class="options-group">
@@ -479,6 +401,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         </div>
                     </div>
 
+                    <!-- 问题 5 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">5</span> Have you allocated sufficient funds in the estate to cover the administration fees and other related expenses for the executor/administrator?</div>
                         <div class="options-group">
@@ -494,6 +417,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         </div>
                     </div>
 
+                    <!-- 问题 6 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">6</span> Do you have minor children?</div>
                         <div class="options-group">
@@ -534,6 +458,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         </div>
                     </div>
 
+                    <!-- 问题 7 -->
                     <div class="question-group">
                         <div class="question-text"><span class="qnum">7</span> Would you like to understand how much funding is necessary to protect a family and estate in the event of someone's passing?</div>
                         <div class="options-group">
@@ -546,7 +471,7 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
                         <button type="button" class="btn btn-back" onclick="window.location.href='myassets.php?id=<?php echo $clientId; ?>';">
                             <i class="fas fa-arrow-left"></i> Back to My Assets
                         </button>
-                        <button type="submit" class="btn btn-next">Go to Estate Fund Need Analysis</i></button>
+                        <button type="submit" class="btn btn-next"><i class="fas fa-arrow-right"></i> Go to Estate Fund Need Analysis</button>
                     </div>
                 </form>
             </div>
@@ -556,69 +481,49 @@ $clientName = 'Zhang Wei';  // 固定显示为 Zhang Wei
 
 <script>
     (function() {
+        // 问题3 子显示
         const q3Radios = document.querySelectorAll('.q3_radio');
         const q3YesSub = document.getElementById('q3_yes_sub');
         const q3NoSub = document.getElementById('q3_no_sub');
-        q3Radios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'Yes') {
-                    q3YesSub.style.display = 'block';
-                    q3NoSub.style.display = 'none';
-                } else if (this.value === 'No') {
-                    q3YesSub.style.display = 'none';
-                    q3NoSub.style.display = 'block';
-                }
-            });
-        });
+        q3Radios.forEach(r => r.addEventListener('change', function() {
+            q3YesSub.style.display = this.value === 'Yes' ? 'block' : 'none';
+            q3NoSub.style.display = this.value === 'No' ? 'block' : 'none';
+        }));
 
+        // 问题5 子显示
         const q5Radios = document.querySelectorAll('.q5_radio');
-        const q5_1_group = document.getElementById('q5_1_group');
-        const q5_1_label = document.getElementById('q5_1_label');
-        q5Radios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'Yes' || this.value === 'No') {
-                    q5_1_group.style.display = 'block';
-                    if (this.value === 'Yes') {
-                        q5_1_label.textContent = 'Could you please specify the amount of funds you have set aside to cover the administration fees and related expenses for the executor / administrator?';
-                    } else {
-                        q5_1_label.textContent = 'Could you please specify the amount of funds you will reserve to cover the administration fees and related expenses for the executor / administrator?';
-                    }
-                }
-            });
-        });
+        const q5Group = document.getElementById('q5_1_group');
+        const q5Label = document.getElementById('q5_1_label');
+        q5Radios.forEach(r => r.addEventListener('change', function() {
+            q5Group.style.display = 'block';
+            q5Label.textContent = this.value === 'Yes'
+                ? 'Could you please specify the amount of funds you have set aside to cover the administration fees and related expenses for the executor / administrator?'
+                : 'Could you please specify the amount of funds you will reserve to cover the administration fees and related expenses for the executor / administrator?';
+        }));
 
+        // 问题6 子显示
         const q6Radios = document.querySelectorAll('.q6_radio');
         const q6Sub = document.getElementById('q6_sub');
-        q6Radios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                q6Sub.style.display = (this.value === 'Yes') ? 'block' : 'none';
-            });
-        });
+        q6Radios.forEach(r => r.addEventListener('change', function() {
+            q6Sub.style.display = this.value === 'Yes' ? 'block' : 'none';
+        }));
 
+        // 页面加载时恢复已选状态
         document.addEventListener('DOMContentLoaded', function() {
             const q3Checked = document.querySelector('input[name="q3"]:checked');
             if (q3Checked) {
-                if (q3Checked.value === 'Yes') {
-                    q3YesSub.style.display = 'block';
-                } else if (q3Checked.value === 'No') {
-                    q3NoSub.style.display = 'block';
-                }
+                q3YesSub.style.display = q3Checked.value === 'Yes' ? 'block' : 'none';
+                q3NoSub.style.display = q3Checked.value === 'No' ? 'block' : 'none';
             }
-
             const q5Checked = document.querySelector('input[name="q5_funds"]:checked');
             if (q5Checked) {
-                q5_1_group.style.display = 'block';
-                if (q5Checked.value === 'Yes') {
-                    q5_1_label.textContent = 'Could you please specify the amount of funds you have set aside to cover the administration fees and related expenses for the executor / administrator?';
-                } else {
-                    q5_1_label.textContent = 'Could you please specify the amount of funds you will reserve to cover the administration fees and related expenses for the executor / administrator?';
-                }
+                q5Group.style.display = 'block';
+                q5Label.textContent = q5Checked.value === 'Yes'
+                    ? 'Could you please specify the amount of funds you have set aside to cover the administration fees and related expenses for the executor / administrator?'
+                    : 'Could you please specify the amount of funds you will reserve to cover the administration fees and related expenses for the executor / administrator?';
             }
-
             const q6Checked = document.querySelector('input[name="q6"]:checked');
-            if (q6Checked && q6Checked.value === 'Yes') {
-                q6Sub.style.display = 'block';
-            }
+            if (q6Checked && q6Checked.value === 'Yes') q6Sub.style.display = 'block';
         });
     })();
 </script>

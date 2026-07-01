@@ -8,343 +8,126 @@
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .page-header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #b30a0a;
-        }
-        .page-header h1 i { color: #921818; }
-        .page-header p {
-            color: #231f1f;
-            font-size: .9rem;
-            margin-top: 2px;
-        }
+        /* 基础布局与卡片样式 */
+        .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+        .page-header h1{font-size:1.5rem;font-weight:700;color:#b30a0a;margin:0}
+        .page-header h1 i{color:#921818}
+        .page-header p{color:#231f1f;font-size:.9rem;margin:4px 0 0}
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 16px;
-        }
-        .tool-card {
-            background: #fff;
-            border-radius: 20px;
-            border: 1px solid #eef2f8;
-            padding: 24px 22px;
-            display: flex;
-            flex-direction: column;
-            transition: all .2s;
-        }
-        .tool-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,.06);
-            transform: translateY(-2px);
-        }
-        .tool-card .tool-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            margin-bottom: 14px;
-            flex-shrink: 0;
-        }
-        .tool-icon.blue { background: #e6f0fa; color: #981414; }
-        .tool-icon.orange { background: #fef0e0; color: #f0ad4e; }
-        .tool-icon.purple { background: #ede0f5; color: #8b5cf6; }
-        .tool-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #0f1113;
-            margin-bottom: 6px;
-        }
-        .tool-card .tool-desc {
-            color: #5a6e7c;
-            font-size: .85rem;
-            line-height: 1.5;
-            margin-bottom: 14px;
-        }
-        .tool-card .tool-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:16px}
+        .tool-card{background:#fff;border-radius:20px;border:1px solid #eef2f8;padding:24px 22px;display:flex;flex-direction:column;transition:all .2s}
+        .tool-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.06);transform:translateY(-2px)}
+        .tool-card .tool-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:14px;flex-shrink:0}
+        .tool-icon.blue{background:#e6f0fa;color:#981414}
+        .tool-icon.orange{background:#fef0e0;color:#f0ad4e}
+        .tool-icon.purple{background:#ede0f5;color:#8b5cf6}
+        .tool-card h3{font-size:1.1rem;font-weight:700;color:#0f1113;margin:0 0 6px}
+        .tool-card .tool-desc{color:#5a6e7c;font-size:.85rem;line-height:1.5;margin-bottom:14px}
+        .tool-card .tool-body{flex:1;display:flex;flex-direction:column;gap:10px}
 
-        .tool-card.btn-card {
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            padding: 32px 24px;
-        }
-        .tool-card.btn-card .tool-icon {
-            width: 72px;
-            height: 72px;
-            border-radius: 20px;
-            font-size: 2rem;
-            margin-bottom: 18px;
-        }
-        .tool-card.btn-card .btn-tool {
-            background: #b30707;
-            color: #fff;
-            border: none;
-            padding: 12px 32px;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background .2s;
-            width: 100%;
-            max-width: 240px;
-        }
-        .tool-card.btn-card .btn-tool:hover {
-            background: #8f0505;
-        }
+        .tool-card.btn-card{align-items:center;text-align:center;justify-content:center;padding:32px 24px}
+        .tool-card.btn-card .tool-icon{width:72px;height:72px;border-radius:20px;font-size:2rem;margin-bottom:18px}
+        .tool-card.btn-card .btn-tool{background:#b30707;color:#fff;border:none;padding:12px 32px;border-radius:40px;font-weight:700;font-size:1.1rem;cursor:pointer;transition:background .2s;width:100%;max-width:240px}
+        .tool-card.btn-card .btn-tool:hover{background:#8f0505}
 
-        .affiliate-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .affiliate-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            background: #f8fafd;
-            border-radius: 12px;
-            border: 1px solid #e4ecf3;
-            transition: all .2s;
-            text-decoration: none;
-            color: #1e466e;
-            cursor: pointer;
-        }
-        .affiliate-item:hover {
-            background: #eef3fc;
-            border-color: #2d7fb9;
-            transform: translateX(4px);
-        }
-        .affiliate-item .aff-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-        .affiliate-item .aff-info { flex: 1; }
-        .affiliate-item .aff-info .name { font-weight: 600; font-size: .9rem; }
-        .affiliate-item .aff-info .desc { font-size: .7rem; color: #6f8ea3; }
-        .affiliate-item .aff-arrow { color: #8aa4bc; font-size: .8rem; }
+        .affiliate-list{display:flex;flex-direction:column;gap:10px}
+        .affiliate-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#f8fafd;border-radius:12px;border:1px solid #e4ecf3;transition:all .2s;text-decoration:none;color:#1e466e;cursor:pointer}
+        .affiliate-item:hover{background:#eef3fc;border-color:#2d7fb9;transform:translateX(4px)}
+        .affiliate-item .aff-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+        .affiliate-item .aff-info{flex:1}
+        .affiliate-item .aff-info .name{font-weight:600;font-size:.9rem}
+        .affiliate-item .aff-info .desc{font-size:.7rem;color:#6f8ea3}
+        .affiliate-item .aff-arrow{color:#8aa4bc;font-size:.8rem}
 
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(4px);
-        }
-        .modal-overlay.open { display: flex; }
-        .modal-box {
-            background: #fff;
-            border-radius: 32px;
-            padding: 30px 35px;
-            max-width: 820px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-        }
-        .modal-box .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #6f8ea3;
-            transition: color .2s;
-        }
-        .modal-box .modal-close:hover { color: #b30707; }
-        .modal-box h2 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 1.4rem;
-            color: #1a2c3e;
-        }
-        .modal-box h2 i { color: #7a3f9e; }
-        .modal-btns {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-        .modal-btns .btn {
-            padding: 8px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            border: 0;
-            cursor: pointer;
-            font-size: .9rem;
-        }
-        .modal-btns .btn-cancel {
-            background: #eef2f8;
-            color: #2c4a66;
-        }
-        .modal-btns .btn-cancel:hover { background: #dce4ed; }
-        .modal-btns .btn-save-risk {
-            background: #7a3f9e;
-            color: #fff;
-        }
-        .modal-btns .btn-save-risk:hover { background: #5f2f7a; }
+        /* 模态框 */
+        .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:2000;justify-content:center;align-items:center;backdrop-filter:blur(4px)}
+        .modal-overlay.open{display:flex}
+        .modal-box{background:#fff;border-radius:32px;padding:30px 35px;max-width:820px;width:90%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(0,0,0,0.3)}
+        .modal-box .modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.8rem;cursor:pointer;color:#6f8ea3;transition:color .2s}
+        .modal-box .modal-close:hover{color:#b30707}
+        .modal-box h2{margin:0 0 16px;font-size:1.4rem;color:#1a2c3e}
+        .modal-box h2 i{color:#7a3f9e}
+        .modal-btns{display:flex;justify-content:flex-end;gap:12px;margin-top:10px;flex-wrap:wrap}
+        .modal-btns .btn{padding:8px 28px;border-radius:40px;font-weight:600;border:0;cursor:pointer;font-size:.9rem}
+        .modal-btns .btn-cancel{background:#eef2f8;color:#2c4a66}
+        .modal-btns .btn-cancel:hover{background:#dce4ed}
+        .modal-btns .btn-save-risk{background:#7a3f9e;color:#fff}
+        .modal-btns .btn-save-risk:hover{background:#5f2f7a}
 
-        .intro-text {
-            font-size: .92rem;
-            color: #1a2c3e;
-            margin-bottom: 18px;
-            background: transparent;
-            border: none;
-            padding: 0;
-        }
-        .risk-section {
-            background: #fafcfe;
-            border-radius: 14px;
-            padding: 14px 18px;
-            margin-bottom: 14px;
-            border: 1px solid #eef2f8;
-        }
-        .risk-section h3 {
-            font-size: .95rem;
-            color: #1a2c3e;
-            margin-bottom: 10px;
-            font-weight: 600;
-            border-bottom: 1px dashed #e0eaf2;
-            padding-bottom: 8px;
-        }
-        .risk-section h3 i { color: #7a3f9e; margin-right: 6px; }
-        .ck-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 6px;
-            padding: 3px 4px;
-            font-size: .82rem;
-            color: #1f3a52;
-            line-height: 1.4;
-        }
-        .ck-item input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            margin-top: 2px;
-            accent-color: #7a3f9e;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
-        .ck-item label { cursor: pointer; flex: 1; }
-        .ck-item:hover { background: #f0f4fa; border-radius: 6px; }
+        .intro-text{font-size:.92rem;color:#1a2c3e;margin-bottom:18px;padding:0}
+        .risk-section{background:#fafcfe;border-radius:14px;padding:14px 18px;margin-bottom:14px;border:1px solid #eef2f8}
+        .risk-section h3{font-size:.95rem;color:#1a2c3e;margin:0 0 10px;font-weight:600;border-bottom:1px dashed #e0eaf2;padding-bottom:8px}
+        .risk-section h3 i{color:#7a3f9e;margin-right:6px}
+        .ck-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;padding:3px 4px;font-size:.82rem;color:#1f3a52;line-height:1.4}
+        .ck-item input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:#7a3f9e;flex-shrink:0;cursor:pointer}
+        .ck-item label{cursor:pointer;flex:1}
+        .ck-item:hover{background:#f0f4fa;border-radius:6px}
 
-        .risk-result { padding: 10px 0; }
-        .risk-result .score-big {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #1a2c3e;
-            margin: 10px 0 5px;
-        }
-        .risk-result .rating {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            padding: 6px 18px;
-            border-radius: 40px;
-            display: inline-block;
-        }
-        .risk-result .rating.low { background: #e0f0e6; color: #1f7a5a; }
-        .risk-result .rating.moderate { background: #fef0e0; color: #b87a1f; }
-        .risk-result .rating.high { background: #fde8e8; color: #b33c3c; }
-        .risk-result .description {
-            background: #f8fafd;
-            border-radius: 16px;
-            padding: 18px 22px;
-            margin-top: 15px;
-            font-size: .95rem;
-            line-height: 1.6;
-            color: #1f3a52;
-        }
+        .risk-result{padding:10px 0}
+        .risk-result .score-big{font-size:2.2rem;font-weight:700;color:#1a2c3e;margin:10px 0 5px}
+        .risk-result .rating{font-size:1.3rem;font-weight:600;margin-bottom:15px;padding:6px 18px;border-radius:40px;display:inline-block}
+        .risk-result .rating.low{background:#e0f0e6;color:#1f7a5a}
+        .risk-result .rating.moderate{background:#fef0e0;color:#b87a1f}
+        .risk-result .rating.high{background:#fde8e8;color:#b33c3c}
+        .risk-result .description{background:#f8fafd;border-radius:16px;padding:18px 22px;margin-top:15px;font-size:.95rem;line-height:1.6;color:#1f3a52}
 
-        footer {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #e0eaf2;
-            text-align: center;
-            font-size: .65rem;
-            color: #7c9ab3;
-        }
+        footer{margin-top:20px;padding-top:10px;border-top:1px solid #e0eaf2;text-align:center;font-size:.65rem;color:#7c9ab3}
 
-        @media (max-width: 1024px) {
-            .tools-grid { grid-template-columns: repeat(2, 1fr); }
-            .tool-card.btn-card { padding: 24px 18px; }
-            .tool-card.btn-card .tool-icon { width: 60px; height: 60px; font-size: 1.6rem; }
-            .tool-card.btn-card .btn-tool { font-size: 1rem; padding: 10px 24px; max-width: 200px; }
+        /* ===== 响应式 ===== */
+        @media(max-width:1024px){
+            .tools-grid{grid-template-columns:repeat(2,1fr)}
+            .tool-card.btn-card{padding:24px 18px}
+            .tool-card.btn-card .tool-icon{width:60px;height:60px;font-size:1.6rem}
+            .tool-card.btn-card .btn-tool{font-size:1rem;padding:10px 24px;max-width:200px}
         }
-        @media (max-width: 768px) {
-            .page-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .page-header h1 { font-size: 1.3rem; }
-            .page-header p { font-size: .8rem; }
-            .tools-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-            .tool-card { padding: 18px 16px; }
-            .tool-card .tool-icon { width: 48px; height: 48px; font-size: 1.3rem; }
-            .tool-card h3 { font-size: 1rem; }
-            .tool-card .tool-desc { font-size: .8rem; }
-            .tool-card.btn-card { padding: 20px 16px; }
-            .tool-card.btn-card .tool-icon { width: 56px; height: 56px; font-size: 1.6rem; }
-            .tool-card.btn-card .btn-tool { font-size: .95rem; padding: 10px 20px; max-width: 180px; }
-            .affiliate-item { padding: 8px 12px; gap: 10px; }
-            .affiliate-item .aff-icon { width: 30px; height: 30px; font-size: .9rem; }
-            .affiliate-item .aff-info .name { font-size: .85rem; }
-            .affiliate-item .aff-info .desc { font-size: .65rem; }
-            .modal-box { padding: 24px 20px; width: 95%; }
-            .modal-box h2 { font-size: 1.2rem; }
-            .risk-section { padding: 12px 14px; }
-            .ck-item { font-size: .78rem; }
+        @media(max-width:768px){
+            .page-header{flex-direction:column;align-items:flex-start}
+            .page-header h1{font-size:1.3rem}
+            .page-header p{font-size:.8rem}
+            .tools-grid{grid-template-columns:1fr 1fr;gap:14px}
+            .tool-card{padding:18px 16px}
+            .tool-card .tool-icon{width:48px;height:48px;font-size:1.3rem}
+            .tool-card h3{font-size:1rem}
+            .tool-card .tool-desc{font-size:.8rem}
+            .tool-card.btn-card{padding:20px 16px}
+            .tool-card.btn-card .tool-icon{width:56px;height:56px;font-size:1.6rem}
+            .tool-card.btn-card .btn-tool{font-size:.95rem;padding:10px 20px;max-width:180px}
+            .affiliate-item{padding:8px 12px;gap:10px}
+            .affiliate-item .aff-icon{width:30px;height:30px;font-size:.9rem}
+            .affiliate-item .aff-info .name{font-size:.85rem}
+            .affiliate-item .aff-info .desc{font-size:.65rem}
+            .modal-box{padding:24px 20px;width:95%}
+            .modal-box h2{font-size:1.2rem}
+            .risk-section{padding:12px 14px}
+            .ck-item{font-size:.78rem}
         }
-        @media (max-width: 480px) {
-            .tools-grid { grid-template-columns: 1fr; gap: 12px; }
-            .tool-card { padding: 16px 14px; }
-            .tool-card .tool-icon { width: 40px; height: 40px; font-size: 1.1rem; }
-            .tool-card h3 { font-size: .95rem; }
-            .tool-card .tool-desc { font-size: .75rem; }
-            .tool-card.btn-card { padding: 18px 14px; }
-            .tool-card.btn-card .tool-icon { width: 48px; height: 48px; font-size: 1.4rem; }
-            .tool-card.btn-card .btn-tool { font-size: .9rem; padding: 8px 16px; max-width: 160px; }
-            .affiliate-item { padding: 6px 10px; gap: 8px; }
-            .affiliate-item .aff-icon { width: 26px; height: 26px; font-size: .8rem; }
-            .affiliate-item .aff-info .name { font-size: .8rem; }
-            .affiliate-item .aff-info .desc { font-size: .6rem; }
-            .modal-box { padding: 18px 14px; width: 98%; border-radius: 24px; }
-            .modal-box h2 { font-size: 1.1rem; }
-            .modal-btns .btn { padding: 6px 18px; font-size: .8rem; }
-            .risk-section { padding: 10px 12px; }
-            .ck-item { font-size: .75rem; gap: 6px; }
-            .ck-item input[type="checkbox"] { width: 14px; height: 14px; }
-            .risk-result .score-big { font-size: 1.8rem; }
-            .risk-result .rating { font-size: 1.1rem; padding: 4px 14px; }
-            .risk-result .description { font-size: .85rem; padding: 14px 16px; }
+        @media(max-width:480px){
+            .tools-grid{grid-template-columns:1fr;gap:12px}
+            .tool-card{padding:16px 14px}
+            .tool-card .tool-icon{width:40px;height:40px;font-size:1.1rem}
+            .tool-card h3{font-size:.95rem}
+            .tool-card .tool-desc{font-size:.75rem}
+            .tool-card.btn-card{padding:18px 14px}
+            .tool-card.btn-card .tool-icon{width:48px;height:48px;font-size:1.4rem}
+            .tool-card.btn-card .btn-tool{font-size:.9rem;padding:8px 16px;max-width:160px}
+            .affiliate-item{padding:6px 10px;gap:8px}
+            .affiliate-item .aff-icon{width:26px;height:26px;font-size:.8rem}
+            .affiliate-item .aff-info .name{font-size:.8rem}
+            .affiliate-item .aff-info .desc{font-size:.6rem}
+            .modal-box{padding:18px 14px;width:98%;border-radius:24px}
+            .modal-box h2{font-size:1.1rem}
+            .modal-btns .btn{padding:6px 18px;font-size:.8rem}
+            .risk-section{padding:10px 12px}
+            .ck-item{font-size:.75rem;gap:6px}
+            .ck-item input[type="checkbox"]{width:14px;height:14px}
+            .risk-result .score-big{font-size:1.8rem}
+            .risk-result .rating{font-size:1.1rem;padding:4px 14px}
+            .risk-result .description{font-size:.85rem;padding:14px 16px}
+        }
+        @media(max-width:400px){
+            .sidebar{width:140px}
+            .main-content{margin-left:140px}
+            .content{padding:8px 6px 0}
         }
     </style>
 </head>
@@ -403,6 +186,7 @@
     </div>
 </div>
 
+<!-- Risk Assessment Modal -->
 <div class="modal-overlay" id="riskModal">
     <div class="modal-box">
         <button class="modal-close" id="closeRiskModal">&times;</button>
@@ -426,7 +210,7 @@
                 <div class="ck-item"><input type="checkbox" id="risk_p10"><label for="risk_p10">I have dependents, e.g. parents or parents-in-law whom I provide for</label></div>
             </div>
             <div class="risk-section">
-                <h3><i class="fas fa-shield-alt"></i> Executor, Guardian &amp; Safekeeping Issues Circumstances</h3>
+                <h3><i class="fas fa-shield-alt"></i> Executor, Guardian &amp; Safekeeping Issues</h3>
                 <div class="ck-item"><input type="checkbox" id="risk_e1"><label for="risk_e1">I am no longer in touch with the appointed executor</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_e2"><label for="risk_e2">I am no longer in touch with the appointed guardian</label></div>
                 <div class="ck-item"><input type="checkbox" id="risk_e3"><label for="risk_e3">I need to pass my Will to someone for safekeeping</label></div>
@@ -474,6 +258,7 @@
 
 <script>
 (function(){
+    // 资金计算器跳转
     document.getElementById('fundingCalcBtn').addEventListener('click', function() {
         window.location.href = 'clients/plan/fundinggap.php';
     });
@@ -482,6 +267,7 @@
     const riskForm = document.getElementById('riskForm');
     const riskResult = document.getElementById('riskResult');
 
+    // 打开风险评估
     document.getElementById('openRiskModal').addEventListener('click', function() {
         riskForm.style.display = 'block';
         riskResult.style.display = 'none';
@@ -489,18 +275,19 @@
         riskModal.classList.add('open');
     });
 
-    document.getElementById('closeRiskModal').addEventListener('click', closeRiskModal);
-    riskModal.addEventListener('click', function(e) {
-        if (e.target === this) closeRiskModal();
-    });
-
+    // 关闭模态框
     function closeRiskModal() {
         riskModal.classList.remove('open');
         riskForm.style.display = 'block';
         riskResult.style.display = 'none';
     }
     window.closeRiskModal = closeRiskModal;
+    document.getElementById('closeRiskModal').addEventListener('click', closeRiskModal);
+    riskModal.addEventListener('click', function(e) {
+        if (e.target === this) closeRiskModal();
+    });
 
+    // 生成结果
     window.goToCheckResult = function() {
         const checkboxes = document.querySelectorAll('#riskForm .ck-item input[type="checkbox"]');
         let count = 0;
@@ -531,6 +318,7 @@
         riskResult.style.display = 'block';
     };
 
+    // 附属链接点击
     document.querySelectorAll('.affiliate-item').forEach(el => {
         el.addEventListener('click', function(e) {
             e.preventDefault();
@@ -538,6 +326,7 @@
         });
     });
 
+    // 导航菜单（与 layout 配合）
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
@@ -559,6 +348,7 @@
         });
     });
 
+    // 侧边栏底部按钮（myprofile / settings）
     document.querySelectorAll('.action-side-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();

@@ -3,11 +3,12 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Clients · SmartWills</title>
     <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* ----- 原有样式（保持不变） ----- */
         .page-header{display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}
         .page-header h1{font-size:1.5rem;color:#000;margin:0}
         .btn-primary{background:#630202;color:#fff;border:none;padding:8px 22px;border-radius:30px;font-weight:600;cursor:pointer}
@@ -101,7 +102,90 @@
         #riskModal .risk-section .ck-item:hover{background:#f0f4fa;border-radius:6px}
         #riskModal .modal-btns .btn-save-risk{background:#7a3f9e;color:#fff}
         #riskModal .modal-btns .btn-save-risk:hover{background:#5f2f7a}
-        @media(max-width:700px){.frow{flex-direction:column;align-items:stretch}.frow label{width:auto}.frow input{width:100%}.frow .ig{flex-direction:column;align-items:flex-start}}
+        /* 风险结果样式（用于结果展示） */
+        .risk-result { padding: 10px 0; }
+        .risk-result h3 { font-size:1.2rem; color:#1a2c3e; margin-bottom:5px; }
+        .risk-result .score-display { font-size:2.2rem; font-weight:700; color:#1a2c3e; margin:10px 0 5px; }
+        .risk-result .risk-level { font-size:1.3rem; font-weight:600; margin-bottom:15px; padding:6px 18px; border-radius:40px; display:inline-block; }
+        .risk-result .risk-level.low { background:#e0f0e6; color:#1f7a5a; }
+        .risk-result .risk-level.moderate { background:#fef0e0; color:#b87a1f; }
+        .risk-result .risk-level.high { background:#fde8e8; color:#b33c3c; }
+        .risk-result .desc { background:#f8fafd; border-radius:16px; padding:18px 22px; margin-top:15px; font-size:0.95rem; line-height:1.6; color:#1f3a52; }
+
+        /* ===== 响应式设计 ===== */
+        /* 平板及以下 */
+        @media (max-width: 1024px) {
+            .page-header h1 { font-size: 1.3rem; }
+            .btn-primary { padding: 6px 18px; font-size: .9rem; }
+            .stat-card { padding: 14px; }
+        }
+
+        /* 手机横屏 / 小平板 */
+        @media (max-width: 768px) {
+            .page-header { flex-wrap: wrap; gap: 10px; }
+            .page-header h1 { font-size: 1.2rem; }
+            .btn-primary { padding: 6px 14px; font-size: .85rem; }
+            .btn-total { padding: 4px 12px; font-size: .9rem; }
+            .btn-total .num { font-size: 1.1rem; }
+            .btn-total .label { font-size: .65rem; }
+
+            .toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+            .toolbar .search-box { width: 100%; }
+            .filter-group { display: flex; gap: 8px; }
+            .filter-group select { flex: 1; }
+
+            .table-scroll { padding: 0 10px 4px; }
+            .client-table { font-size: .75rem; }
+            .client-table th, .client-table td { padding: 8px 6px; }
+            .client-name .avatar { width: 24px; height: 24px; font-size: .65rem; }
+            .risk-badge, .status-badge { font-size: .6rem; padding: 1px 8px; }
+            .action-cell { gap: 4px; }
+            .btn-sm { font-size: .65rem; padding: 2px 8px; }
+
+            .modal-box { padding: 20px; margin: 10px; }
+            #riskModal .modal-box { max-width: 100%; }
+            #addModal .modal-box { max-width: 100%; }
+            .modal-head h2 { font-size: 1.2rem; }
+            #riskModal .modal-head h2 { font-size: 1.2rem; }
+            .modal-head .close { font-size: 1.5rem; }
+
+            .fsection { padding: 14px 16px; }
+            .frow { flex-direction: column; align-items: stretch; }
+            .frow label { width: auto; }
+            .frow input, .frow select { width: 100%; min-width: 0; }
+            .frow .ig { flex-direction: column; align-items: flex-start; }
+
+            .modal-btns .btn { padding: 6px 20px; font-size: .8rem; }
+            .risk-result .score-display { font-size: 1.8rem; }
+            .risk-result .risk-level { font-size: 1.1rem; padding: 4px 14px; }
+            .risk-result .desc { padding: 14px 16px; font-size: .85rem; }
+        }
+
+        /* 小屏手机 */
+        @media (max-width: 480px) {
+            .page-header h1 { font-size: 1rem; }
+            .btn-primary { padding: 5px 12px; font-size: .75rem; }
+            .btn-total { padding: 3px 8px; font-size: .8rem; margin: 0 4px; }
+            .btn-total .num { font-size: 1rem; }
+            .btn-total .label { font-size: .6rem; }
+
+            .client-table { font-size: .7rem; }
+            .client-table th, .client-table td { padding: 6px 4px; }
+            .client-name .avatar { width: 20px; height: 20px; font-size: .55rem; }
+            .risk-badge, .status-badge { font-size: .55rem; padding: 1px 6px; }
+            .btn-sm { font-size: .6rem; padding: 2px 6px; }
+
+            .modal-box { padding: 16px; }
+            .modal-head h2 { font-size: 1rem; }
+            .modal-btns .btn { padding: 5px 16px; font-size: .75rem; }
+            .fsection { padding: 12px; }
+            .fsection h3 { font-size: .95rem; }
+
+            .risk-result .score-display { font-size: 1.6rem; }
+            .risk-result .risk-level { font-size: 1rem; padding: 3px 12px; }
+            .risk-result .desc { padding: 12px 14px; font-size: .8rem; }
+            #riskModal .risk-section .ck-item { font-size: .75rem; }
+        }
     </style>
 </head>
 <body>
@@ -148,6 +232,7 @@
         </div>
     </div>
 </div>
+<!-- ===== Edit Modal ===== -->
 <div id="editModal">
     <div class="modal-box">
         <div class="modal-head"><h2><i class="fas fa-user-edit"></i> Edit Client</h2><button class="close" onclick="closeEditModal()">&times;</button></div>
@@ -167,6 +252,7 @@
         </form>
     </div>
 </div>
+<!-- ===== Add Client Modal ===== -->
 <div id="addModal">
     <div class="modal-box">
         <div class="modal-head">
@@ -192,6 +278,7 @@
         </form>
     </div>
 </div>
+<!-- ===== Risk Assessment Modal ===== -->
 <div id="riskModal">
     <div class="modal-box">
         <div class="modal-head">
@@ -251,7 +338,9 @@
         </div>
     </div>
 </div>
+
 <script>
+// 数据与逻辑（保持不变）
 const clients = [
     {id:1, name:'Zhang Wei', phone:'13812345678', status:'active', riskScore:8, updated:'2026-06-15'},
     {id:2, name:'Li Fang', phone:'13987654321', status:'done', riskScore:3, updated:'2026-06-10'},
@@ -398,13 +487,11 @@ function saveRiskAssessment(){
     }
     const modalBody = document.querySelector('#riskModal .modal-body');
     modalBody.innerHTML = `
-        <div class="risk-result" style="padding: 10px 0;">
-            <h3 style="font-size:1.2rem; color:#1a2c3e; margin-bottom:5px;">WHAT'S YOUR SCORE AND WHERE DO YOU STAND?</h3>
-            <div style="font-size:2.2rem; font-weight:700; color:#1a2c3e; margin:10px 0 5px;">${score} points</div>
-            <div style="font-size:1.3rem; font-weight:600; margin-bottom:15px; padding:6px 18px; border-radius:40px; display:inline-block; background:${levelClass==='low'?'#e0f0e6':levelClass==='moderate'?'#fef0e0':'#fde8e8'}; color:${levelClass==='low'?'#1f7a5a':levelClass==='moderate'?'#b87a1f':'#b33c3c'};">${level}</div>
-            <div style="background:#f8fafd; border-radius:16px; padding:18px 22px; margin-top:15px; font-size:0.95rem; line-height:1.6; color:#1f3a52;">
-                ${descText}
-            </div>
+        <div class="risk-result">
+            <h3>WHAT'S YOUR SCORE AND WHERE DO YOU STAND?</h3>
+            <div class="score-display">${score} points</div>
+            <div class="risk-level ${levelClass}">${level}</div>
+            <div class="desc">${descText}</div>
         </div>
         <div class="modal-btns" style="margin-top:20px;">
             <button type="button" class="btn btn-cancel" onclick="closeRiskModal()">Close</button>

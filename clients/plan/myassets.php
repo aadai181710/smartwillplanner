@@ -1,18 +1,18 @@
 <?php
 $activePage = 'clients';
 $clientId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
+$clientName = 'Zhang Wei';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>My Assets · SmartWills</title>
     <link rel="stylesheet" href="../../assets/css/global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 固定侧边栏和顶栏，内容滚动 */
+        /* ----- 基础布局 ----- */
         html, body {
             height: 100%;
             margin: 0;
@@ -64,13 +64,8 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
             padding: 24px 30px 30px;
             transition: 0.2s;
         }
-        @media (max-width: 600px) {
-            .assets-wrapper {
-                padding: 20px 18px;
-            }
-        }
 
-        /* ---------- 进度条样式 ---------- */
+        /* ---------- 进度条 ---------- */
         .progress-steps {
             display: flex;
             align-items: flex-start;
@@ -129,34 +124,6 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
             color: #b30707;
             font-weight: 700;
         }
-        @media (max-width: 700px) {
-            .step .circle {
-                width: 34px;
-                height: 34px;
-                font-size: 0.8rem;
-            }
-            .step .label {
-                font-size: 0.6rem;
-                max-width: 60px;
-            }
-            .progress-steps::before {
-                top: 17px;
-            }
-        }
-        @media (max-width: 500px) {
-            .step .label {
-                font-size: 0.5rem;
-                max-width: 44px;
-            }
-            .step .circle {
-                width: 28px;
-                height: 28px;
-                font-size: 0.65rem;
-            }
-            .progress-steps::before {
-                top: 14px;
-            }
-        }
 
         .header {
             display: flex;
@@ -200,16 +167,6 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
             font-weight: 600;
             color: #1e466e;
             font-size: 1.05rem;
-        }
-        @media (max-width: 600px) {
-            .header .client-info .avatar {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
-            }
-            .header .client-info .client-name-text {
-                font-size: 0.9rem;
-            }
         }
 
         .accordion-section {
@@ -386,37 +343,274 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
             background: #8f0505;
         }
 
-        @media (max-width: 700px) {
+        /* =============================================== */
+        /* ===== 响应式设计 (新增完善) ===== */
+        /* =============================================== */
+
+        /* 平板 (≤1024px) */
+        @media (max-width: 1024px) {
+            .assets-wrapper {
+                padding: 20px 24px 24px;
+            }
+            .step .circle {
+                width: 38px;
+                height: 38px;
+                font-size: 0.85rem;
+            }
+            .step .label {
+                font-size: 0.65rem;
+                max-width: 72px;
+            }
+            .progress-steps::before {
+                top: 19px;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* 手机横屏/小平板 (≤768px) */
+        @media (max-width: 768px) {
+            .assets-wrapper {
+                padding: 16px 18px 20px;
+                border-radius: 24px;
+            }
+            .progress-steps {
+                margin-bottom: 20px;
+                padding: 0;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 4px;
+            }
+            .progress-steps::before {
+                top: 16px;
+                left: 10px;
+                right: 10px;
+            }
+            .step {
+                flex: 0 0 auto;
+                min-width: 50px;
+            }
+            .step .circle {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+            .step .label {
+                font-size: 0.55rem;
+                max-width: 52px;
+                margin-top: 4px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding-bottom: 12px;
+                margin-bottom: 18px;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            .header .client-info .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            .header .client-info .client-name-text {
+                font-size: 0.95rem;
+            }
+
+            .accordion-header {
+                padding: 14px 16px;
+            }
+            .accordion-header .title {
+                font-size: 0.95rem;
+            }
+            .accordion-body {
+                padding: 0 16px 16px 16px;
+            }
+
             .frow {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 6px;
+                margin-bottom: 10px;
             }
             .frow label {
                 width: auto;
+                font-size: 0.85rem;
             }
             .frow input[type="text"],
             .frow input[type="number"] {
                 width: 100%;
+                min-width: 0;
+                font-size: 0.85rem;
             }
             .frow .input-group {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 6px;
             }
+            .frow .input-group label {
+                font-size: 0.8rem;
+            }
+            .frow .small,
+            .frow .half {
+                flex: none;
+                width: 100%;
+                min-width: 0;
+            }
+
             .sub-section {
-                padding-left: 10px;
+                padding-left: 12px;
+                margin-top: 8px;
             }
+            .sub-section .sub-label {
+                font-size: 0.85rem;
+            }
+
             .btn-row {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 12px;
+                margin-top: 24px;
+                padding-top: 20px;
             }
             .btn {
                 justify-content: center;
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
+
+            /* 侧边栏宽度适配 */
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        /* 小屏手机 (≤480px) */
+        @media (max-width: 480px) {
+            .assets-wrapper {
+                padding: 12px 14px 16px;
+                border-radius: 20px;
+            }
+
+            .progress-steps {
+                margin-bottom: 16px;
+            }
+            .step .circle {
+                width: 26px;
+                height: 26px;
+                font-size: 0.6rem;
+            }
+            .step .label {
+                font-size: 0.45rem;
+                max-width: 40px;
+            }
+            .progress-steps::before {
+                top: 13px;
+            }
+
+            .header h1 {
+                font-size: 1rem;
+                gap: 6px;
+            }
+            .header .client-info .avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+            }
+            .header .client-info .client-name-text {
+                font-size: 0.85rem;
+            }
+
             .accordion-header {
-                padding: 14px 16px;
+                padding: 12px 14px;
+            }
+            .accordion-header .title {
+                font-size: 0.85rem;
+                gap: 6px;
+            }
+            .accordion-header .title i {
+                width: 16px;
+                font-size: 0.85rem;
+            }
+            .accordion-header .arrow {
+                font-size: 0.9rem;
             }
             .accordion-body {
-                padding: 0 16px 16px 16px;
+                padding: 0 14px 14px 14px;
+            }
+
+            .frow {
+                gap: 4px;
+                margin-bottom: 8px;
+            }
+            .frow label {
+                font-size: 0.8rem;
+            }
+            .frow input[type="text"],
+            .frow input[type="number"] {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+                border-radius: 24px;
+            }
+            .frow .input-group label {
+                font-size: 0.75rem;
+            }
+            .frow .input-group input[type="radio"],
+            .frow .input-group input[type="checkbox"] {
+                width: 14px;
+                height: 14px;
+            }
+
+            .sub-section {
+                padding-left: 8px;
+            }
+            .sub-section .sub-label {
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+            .btn-row {
+                gap: 10px;
+                margin-top: 20px;
+                padding-top: 16px;
+            }
+
+            .sidebar {
+                width: 170px;
+            }
+            .main-content {
+                margin-left: 170px;
+            }
+            .content {
+                padding: 12px 10px 0;
+            }
+        }
+
+        /* 极端小屏 (≤400px) */
+        @media (max-width: 400px) {
+            .sidebar {
+                width: 140px;
+            }
+            .main-content {
+                margin-left: 140px;
+            }
+            .content {
+                padding: 8px 6px 0;
+            }
+            .assets-wrapper {
+                padding: 10px 10px 14px;
+                border-radius: 16px;
             }
         }
     </style>
@@ -428,7 +622,7 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
         <?php include '../../layouts/topbar.php'; ?>
         <div class="content">
             <div class="assets-wrapper">
-                <!-- ========== 进度条 ========== -->
+                <!-- 进度条 -->
                 <div class="progress-steps">
                     <div class="step active">
                         <span class="circle">1</span>
@@ -460,10 +654,7 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
                     <h1><i class="fas fa-address-card"></i> My Assets</h1>
                     <div class="client-info">
                         <span class="avatar">
-                            <?php 
-                                // 头像显示首字母
-                                echo strtoupper(substr(trim($clientName), 0, 1));
-                            ?>
+                            <?php echo strtoupper(substr(trim($clientName), 0, 1)); ?>
                         </span>
                         <span class="client-name-text"><?php echo htmlspecialchars($clientName); ?></span>
                     </div>
@@ -472,7 +663,7 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
                 <form method="POST" action="myassets.php?id=<?=$clientId?>">
                     <input type="hidden" name="client_id" value="<?=$clientId?>">
 
-                    <!-- ===== 1. Family Information ===== -->
+                    <!-- Family Information -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-users"></i> Family Information</span>
@@ -516,7 +707,7 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
                         </div>
                     </div>
 
-                    <!-- ===== 2. Assets Information ===== -->
+                    <!-- Assets Information -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-building"></i> Assets Information</span>
@@ -542,7 +733,7 @@ $clientName = 'Zhang Wei';  // 直接指定客户名称，忽略 URL 中的 id
                         </div>
                     </div>
 
-                    <!-- ===== 3. Checklist ===== -->
+                    <!-- Checklist -->
                     <div class="accordion-section">
                         <div class="accordion-header" onclick="toggleAccordion(this)">
                             <span class="title"><i class="fas fa-list-check"></i> Checklist</span>
