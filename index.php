@@ -36,6 +36,7 @@
 
         @media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr)}.modules-grid{grid-template-columns:1fr}.module-card.recent-cases{grid-column:1}}
         @media(max-width:768px){
+            /* 保留原有布局调整 */
             .hero-banner{padding:20px}
             .hero-banner h1{font-size:1.3rem}
             .hero-banner p{font-size:.9rem}
@@ -52,6 +53,13 @@
             .module-card.recent-cases .placeholder-table .header{grid-column:span 2}
             .module-card.recent-cases .placeholder-table span{padding:2px 0;border-bottom:1px solid #f0f4fa}
             .module-card.recent-cases .placeholder-table span:nth-child(n+5){border-bottom:none}
+
+            /* 新增整体缩放（等比适应屏幕） */
+            body {
+                zoom: 0.75;
+                -moz-transform: scale(0.75);
+                -moz-transform-origin: top left;
+            }
         }
         @media(max-width:480px){
             .hero-banner{padding:16px;border-radius:16px}
@@ -65,6 +73,21 @@
             .module-card.recent-cases .placeholder-table .header{grid-column:1;margin-top:6px}
             .module-card.recent-cases .placeholder-table span{padding:2px 0;border-bottom:1px solid #f0f4fa}
             .module-card.recent-cases .placeholder-table span:last-child{border-bottom:none}
+
+            /* 进一步缩放 */
+            body {
+                zoom: 0.55;
+                -moz-transform: scale(0.55);
+                -moz-transform-origin: top left;
+            }
+        }
+        @media(max-width:400px){
+            /* 极窄屏额外保护 */
+            body {
+                zoom: 0.45;
+                -moz-transform: scale(0.45);
+                -moz-transform-origin: top left;
+            }
         }
     </style>
 </head>
