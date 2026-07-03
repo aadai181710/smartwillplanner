@@ -1,14 +1,18 @@
 <?php $activePage = 'tools'; ?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SmartWills · Tools</title>
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/topbar.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/tools.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ===== 原有全部样式（完全保留） ===== */
+</head>
+        <!-- /* ===== 原有全部样式（完全保留） ===== */
         .page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px}
         .page-header h1{font-size:1.5rem;font-weight:700;color:#b30a0a;margin:0}
         .page-header h1 i{color:#921818}
@@ -146,8 +150,8 @@
                 -moz-transform: scale(0.45);
                 -moz-transform-origin: top left;
             }
-        }
-    </style>
+        } 
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -379,5 +383,6 @@
     });
 })();
 </script>
+<script src="assets/js/global.js"></script>
 </body>
 </html>

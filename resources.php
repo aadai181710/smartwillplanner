@@ -1,14 +1,18 @@
 <?php $activePage = 'resources'; ?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Resource Center · SmartWills</title>
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/topbar.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/resources.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ===== 卡片网格 ===== */
+</head>
+        <!-- /* ===== 卡片网格 ===== */
         .resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}
         .res-card{background:#fff;border-radius:18px;padding:24px 20px;border:1px solid #edf2f7;cursor:pointer;transition:.25s}
         .res-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.06)}
@@ -51,8 +55,7 @@
         @media(max-width:400px){
             .content{padding:8px 6px 0}
             .res-card{padding:14px 12px}
-        }
-    </style>
+        } -->
 </head>
 <body>
 <div class="wrapper">
@@ -111,5 +114,6 @@
         alert('🎫 Support & Ticketing (demo)');
     });
 </script>
+<script src="assets/js/global.js"></script>
 </body>
 </html>

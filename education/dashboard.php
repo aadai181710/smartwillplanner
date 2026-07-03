@@ -2,13 +2,19 @@
 $activePage = 'education';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Education Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Education Center · SmartWills</title>
     <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../assets/css/topbar.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/education.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        .hero-inner {
+</head>
+        <!-- .hero-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -297,7 +303,7 @@ $activePage = 'education';
             .tabs { flex-wrap: wrap; }
             .course-grid { grid-template-columns: 1fr; }
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -504,5 +510,6 @@ $activePage = 'education';
         setActiveTab('all');
     });
 </script>
+<script src="../assets/js/global.js"></script>
 </body>
 </html>

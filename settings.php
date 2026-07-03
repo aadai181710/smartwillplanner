@@ -2,15 +2,18 @@
 $activePage = 'settings';
 ?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Settings · SmartWills</title>
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/topbar.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/settings.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ===== 头部 ===== */
+        <!-- /* ===== 头部 ===== */
         .settings-header{display:flex;align-items:center;gap:20px;padding:20px 0 30px;border-bottom:2px solid #eef3f8;margin-bottom:30px;flex-wrap:wrap}
         .settings-header .icon-box{width:70px;height:70px;border-radius:18px;background:linear-gradient(135deg,#fef0f0,#fde8e8);display:flex;align-items:center;justify-content:center;font-size:2rem;color:#b30707;flex-shrink:0}
         .settings-header .greeting h1{font-size:1.6rem;font-weight:700;color:#1a2c3e;margin:0}
@@ -70,8 +73,7 @@ $activePage = 'settings';
         @media(max-width:400px){
             .content{padding:8px 6px 0}
             .settings-card{padding:14px}
-        }
-    </style>
+        } -->
 </head>
 <body>
 <div class="wrapper">
@@ -141,5 +143,6 @@ $activePage = 'settings';
         </div>
     </div>
 </div>
+<script src="assets/js/global.js"></script>
 </body>
 </html>

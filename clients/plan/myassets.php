@@ -10,9 +10,13 @@ $clientName = 'Zhang Wei';
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>My Assets · SmartWills</title>
     <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/topbar.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/myassets.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ----- 基础布局 ----- */
+</head>
+        <!-- /* ----- 基础布局 ----- */
         html, body {
             height: 100%;
             margin: 0;
@@ -613,7 +617,7 @@ $clientName = 'Zhang Wei';
                 border-radius: 16px;
             }
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -830,5 +834,6 @@ function toggleAccordion(header) {
     }
 }
 </script>
+<script src="../../assets/js/global.js"></script>
 </body>
 </html>

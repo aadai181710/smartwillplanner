@@ -1,0 +1,220 @@
+/**
+ * Topbar Styles
+ * Header/navigation bar with search and user controls
+ */
+
+/* ===== Topbar Base Styles ===== */
+.topbar {
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ===== Search Box ===== */
+.search-box {
+  flex: 0 0 auto;
+}
+
+.search-box input {
+  width: 320px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f6f7fb;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  border-color: #8b0000;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.search-box input::placeholder {
+  color: #aaa;
+}
+
+/* ===== Topbar Right Section ===== */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.topbar-right span {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.topbar-right span:hover {
+  transform: scale(1.1);
+}
+
+#supportText {
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== New Case Button ===== */
+.btn-new-case {
+  background: #8b0000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-new-case:hover {
+  background: #7a0000;
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+}
+
+.btn-new-case:active {
+  transform: scale(0.95);
+}
+
+/* ===== Avatar ===== */
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #8b0000;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.avatar:hover {
+  background: #7a0000;
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+}
+
+/* ===== Tablet Responsiveness (1024px and below) ===== */
+@media (max-width: 1024px) {
+  .topbar {
+    padding: 0 20px;
+    height: 65px;
+  }
+
+  .search-box input {
+    width: 250px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .topbar-right {
+    gap: 16px;
+  }
+
+  .btn-new-case {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+/* ===== Mobile Responsiveness (768px and below) ===== */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 60px 0 20px;
+    height: 60px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 9px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+
+  .topbar-right {
+    gap: 12px;
+  }
+
+  .topbar-right span {
+    font-size: 1.1rem;
+  }
+
+  #supportText {
+    font-size: 12px;
+  }
+
+  .btn-new-case {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+}
+
+/* ===== Small Mobile (480px and below) ===== */
+@media (max-width: 480px) {
+  .topbar {
+    padding: 0 55px 0 16px;
+    height: 56px;
+    gap: 10px;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .topbar-right {
+    gap: 10px;
+  }
+
+  .topbar-right span {
+    font-size: 1rem;
+  }
+
+  #supportText {
+    display: none;
+  }
+
+  .btn-new-case {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+}

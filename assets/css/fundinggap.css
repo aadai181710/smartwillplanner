@@ -1,0 +1,85 @@
+/* fundinggap.css - Funding Gap Analysis styling */
+@import url("components.css");
+
+.funding-wrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  padding: 24px 30px 30px;
+}
+
+.accordion-section {
+  margin-bottom: 16px;
+  border-radius: 16px;
+  border: 1px solid #eef2f8;
+  overflow: hidden;
+  background: #fff;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  cursor: pointer;
+  background: #fafcfd;
+  user-select: none;
+}
+
+.accordion-header:hover {
+  background: #f0f4fa;
+}
+
+.accordion-header .title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a2c3e;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.accordion-header .arrow {
+  font-size: 1.1rem;
+  color: #6f8ea3;
+  transition: transform 0.25s ease;
+}
+
+.accordion-header .arrow.open {
+  transform: rotate(180deg);
+}
+
+.accordion-body {
+  padding: 0 22px 22px;
+  display: none;
+}
+
+.accordion-body.open {
+  display: block;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+@media (max-width: 768px) {
+  .funding-wrapper {
+    padding: 16px 18px 20px;
+  }
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordion-header {
+    padding: 12px 14px;
+  }
+  .accordion-header .title {
+    font-size: 0.85rem;
+  }
+}

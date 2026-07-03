@@ -1,14 +1,18 @@
 <?php $activePage = 'clients'; ?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Clients · SmartWills</title>
     <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../assets/css/topbar.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/clients.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ----- 原有样式（保持不变） ----- */
+</head>
+        <!-- /* ----- 原有样式（保持不变） ----- */
         .page-header{display:flex;align-items:center;gap:15px;margin-bottom:20px;flex-wrap:wrap}
         .page-header h1{font-size:1.5rem;color:#000;margin:0}
         .btn-primary{background:#630202;color:#fff;border:none;padding:8px 22px;border-radius:30px;font-weight:600;cursor:pointer}
@@ -185,8 +189,8 @@
             .risk-result .risk-level { font-size: 1rem; padding: 3px 12px; }
             .risk-result .desc { padding: 12px 14px; font-size: .8rem; }
             #riskModal .risk-section .ck-item { font-size: .75rem; }
-        }
-    </style>
+        } 
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -499,5 +503,6 @@ function saveRiskAssessment(){
     `;
 }
 </script>
+<script src="../assets/js/global.js"></script>
 </body>
 </html>

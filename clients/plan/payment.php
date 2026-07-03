@@ -11,9 +11,13 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Payment · SmartWills</title>
     <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/topbar.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/payment.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* 基础布局 */
+</head>
+        <!-- /* 基础布局 */
         html,body{height:100%;margin:0}
         .wrapper{display:flex;height:100vh;overflow:hidden}
         .sidebar{position:fixed;top:0;left:0;height:100vh;width:250px;overflow-y:auto;z-index:1000;background:#fff;border-right:1px solid #eef2f8}
@@ -145,7 +149,7 @@ $paymentSuccess = isset($_GET['status']) && $_GET['status'] === 'success';
             .content{padding:8px 6px 0}
             .payment-wrapper{padding:10px 10px 14px;border-radius:16px}
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -238,5 +242,6 @@ function selectMethod(el) {
     el.classList.add('active');
 }
 </script>
+<script src="../../assets/js/global.js"></script>
 </body>
 </html>

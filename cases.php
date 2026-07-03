@@ -1,14 +1,18 @@
 <?php $activePage = 'cases'; ?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Cases · SmartWills</title>
+    <title>Case Management · SmartWills</title>
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/topbar.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/cases.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ===== 全局重置 ===== */
+</head>
+        <!-- /* ===== 全局重置 ===== */
         *{box-sizing:border-box}
         body{margin:0}
         .wrapper{display:flex;height:100vh;overflow:hidden}
@@ -135,7 +139,7 @@
             .main-content{margin-left:140px}
             .content{padding:8px 6px 0}
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -339,5 +343,6 @@ document.getElementById('editForm').addEventListener('submit', function(e) {
 // ========== Init ==========
 render(cases);
 </script>
+<script src="assets/js/global.js"></script>
 </body>
 </html>

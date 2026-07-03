@@ -1,3 +1,11 @@
+<button class="hamburger-menu" id="hamburgerMenu">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 <div class="sidebar">
 
     <div class="sidebar-header">
@@ -50,9 +58,6 @@
         class="menu-item <?= ($activePage == 'salesreport') ? 'active' : ''; ?>">
             Sales Report
         </a>
-
-
-
 
     </div>
 

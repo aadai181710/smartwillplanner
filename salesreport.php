@@ -1,14 +1,18 @@
 <?php $activePage = 'salesreport'; ?>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Sales Report · SmartWills</title>
     <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/topbar.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/salesreport.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* ===== 统计卡片 ===== */
+</head>
+        <!-- /* ===== 统计卡片 ===== */
         .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
         .stat-card{background:#fff;border-radius:16px;padding:18px 20px;border:1px solid #eef2f8;display:flex;align-items:center;gap:14px}
         .stat-card .stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
@@ -85,7 +89,7 @@
         @media(max-width:400px){
             .content{padding:8px 6px 0}
         }
-    </style>
+    </style> -->
 </head>
 <body>
 <div class="wrapper">
@@ -149,5 +153,6 @@
         alert('📅 Filter: ' + (this.options[this.selectedIndex].text) + ' (demo)');
     });
 </script>
+<script src="assets/js/global.js"></script>
 </body>
 </html>

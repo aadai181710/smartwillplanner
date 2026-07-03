@@ -1,0 +1,73 @@
+/* epchecklist.css - Employee Provident Fund Checklist styling */
+@import url("components.css");
+
+.checklist-wrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  padding: 24px 30px 30px;
+}
+
+.question-group {
+  margin-bottom: 28px;
+  border-bottom: 1px dashed #e6edf4;
+  padding-bottom: 22px;
+}
+
+.question-text {
+  font-weight: 600;
+  color: #0f3b5c;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.options-group {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.options-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: #2c4a66;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.options-group input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #b30707;
+  cursor: pointer;
+}
+
+.sub-question {
+  margin-top: 18px;
+  margin-left: 20px;
+  padding-left: 18px;
+  border-left: 3px solid #d0e3f5;
+}
+
+@media (max-width: 768px) {
+  .checklist-wrapper {
+    padding: 16px 18px 20px;
+  }
+  .options-group {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .options-group {
+    gap: 12px;
+  }
+  .options-group label {
+    font-size: 0.85rem;
+  }
+}
