@@ -23,24 +23,39 @@ body {
   background: #f6f7fb;
   color: #1a2c3e;
   line-height: 1.5;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
 }
 
 /* ===== Root Layout ===== */
 .wrapper {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .content {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
+  min-width: 0;
 }
 
 /* ===== Typography ===== */
@@ -87,6 +102,22 @@ a {
 
 a:hover {
   color: #1f5a8a;
+}
+
+.responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.responsive-table table {
+  min-width: 640px;
+}
+
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 20px;
 }
 
 /* ===== Responsive ===== */

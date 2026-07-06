@@ -104,6 +104,10 @@
   align-items: center;
 }
 
+.res-card .meta i {
+  color: #b0c8dd;
+}
+
 .res-card .badge {
   background: #eef3fc;
   color: #1f6390;

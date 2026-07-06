@@ -5,6 +5,12 @@
 
 // ===== Hamburger Menu Toggle =====
 document.addEventListener("DOMContentLoaded", function () {
+  if (window.smartWillsSidebarBootstrapped) {
+    return;
+  }
+
+  window.smartWillsSidebarBootstrapped = true;
+
   const hamburgerMenu = document.querySelector(".hamburger-menu");
   const sidebar = document.querySelector(".sidebar");
   const sidebarOverlay = document.querySelector(".sidebar-overlay");

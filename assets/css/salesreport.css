@@ -120,6 +120,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.report-card .meta i {
+  color: #b0c8dd;
+}
 .report-card .badge {
   background: #eef3fc;
   color: #2c2c2c;

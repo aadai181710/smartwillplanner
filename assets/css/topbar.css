@@ -139,7 +139,7 @@
 /* ===== Mobile Responsiveness (768px and below) ===== */
 @media (max-width: 768px) {
   .topbar {
-    padding: 0 60px 0 20px;
+    padding: 0 16px 0 60px;
     height: 60px;
     flex-wrap: wrap;
     gap: 12px;
@@ -184,7 +184,7 @@
 /* ===== Small Mobile (480px and below) ===== */
 @media (max-width: 480px) {
   .topbar {
-    padding: 0 55px 0 16px;
+    padding: 0 12px 0 55px;
     height: 56px;
     gap: 10px;
   }

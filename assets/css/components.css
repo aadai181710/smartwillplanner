@@ -17,6 +17,7 @@ button {
 .btn-sm {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   border: none;
   border-radius: 40px;
@@ -258,11 +259,13 @@ button {
 
 .table-scroll {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding: 0 20px 4px;
 }
 
 table {
   width: 100%;
+  min-width: 640px;
   border-collapse: collapse;
   font-size: 0.85rem;
 }
@@ -424,6 +427,7 @@ tr:hover {
   .btn-primary,
   .btn-secondary,
   .btn-outline {
+    min-height: 42px;
     padding: 8px 20px;
     font-size: 0.85rem;
   }
@@ -471,6 +475,7 @@ tr:hover {
   .btn-primary,
   .btn-secondary,
   .btn-outline {
+    width: 100%;
     padding: 6px 16px;
     font-size: 0.8rem;
   }
